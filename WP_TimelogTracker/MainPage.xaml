@@ -1,0 +1,116 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:local="clr-namespace:WP_TimelogTracker" 
+    x:Class="WP_TimelogTracker.MainPage"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696" 
+    
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        
+            <DataTemplate x:Name="TaskGridItemTemplate" >
+                <Grid Margin="0,0,0,5" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="{Binding WBS}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" FontSize="{StaticResource PhoneFontSizeSmall}" />
+                    <TextBlock Text="{Binding FullName}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" FontSize="{StaticResource PhoneFontSizeSmall}" FontWeight="SemiBold" d:LayoutOverrides="GridBox" />
+
+                    <TextBlock Text="{Binding ProjectName}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" FontSize="{StaticResource PhoneFontSizeSmall}"  />
+                    <TextBlock Text="{Binding CustomerName}" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"  FontSize="{StaticResource PhoneFontSizeSmall}"  />
+                    <toolkit:ContextMenuService.ContextMenu>                   
+                    <toolkit:ContextMenu>                        
+                        <toolkit:MenuItem Header="pin to start menu" Click="MenuItemPinToStart_Click" />                       
+                                              
+                    </toolkit:ContextMenu>                 
+                </toolkit:ContextMenuService.ContextMenu>
+            </Grid>
+            </DataTemplate>       
+    </phone:PhoneApplicationPage.Resources>
+	
+    <phone:PhoneApplicationPage.ApplicationBar>
+		<shell:ApplicationBar>            
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.sync.rest.png" Text="Syncronize" Click="ReloadTasks_Click" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="Syncronize" Click="ReloadTasks_Click"/>                
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar>
+    
+
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+
+        <controls:Pivot Title="SELECT A TASK" Name="pivot1" >
+    		<controls:Pivot.Foreground>
+    			<SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
+    		</controls:Pivot.Foreground>
+            <controls:PivotItem Header="recent" x:Name="RecentList">
+                <Grid>
+                    <ListBox ItemsSource="{Binding RecentTasks}" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True" >
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+            
+            <controls:PivotItem Header="newest" x:Name="NewestList">
+                <Grid>
+                    <ListBox ItemsSource="{Binding NewestTasks}" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True">
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+            <controls:PivotItem Header="all" x:Name="AllList" >
+                <ListBox ItemsSource="{Binding Tasks}" SelectionChanged="TaskListBox_SelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True">                    
+                </ListBox>
+            </controls:PivotItem>
+            
+    		<!--</controls:Pivot>
+                <Grid>
+                    <ListBox x:Name="AllTaskItemList" Template="AllTaskItemTemplate" SelectionChanged="TaskListBox_SelectionChanged" >
+                    </ListBox>
+                </Grid>                
+    		</controls:PivotItem>
+    		
+    		<controls:PivotItem Header="project">
+    			<Grid/>
+    		</controls:PivotItem>
+    		<controls:PivotItem Header="customer">
+    			<Grid/>
+    		</controls:PivotItem>-->
+    	</controls:Pivot>
+        
+        
+    </Grid>
+ 
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</phone:PhoneApplicationPage>

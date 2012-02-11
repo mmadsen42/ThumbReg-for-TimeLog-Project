@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_SecurityService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+                <binding name="BasicHttpBinding_SecurityService1" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="Transport" />
+                </binding>
+                <binding name="BasicHttpBinding_ProjectManagementService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="Transport" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://app.timelog.dk/local/WebServices/Security/V1_0/SecurityService.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_SecurityService"
+                contract="Timelog.SecurityService" name="BasicHttpBinding_SecurityService" />
+            <endpoint address="https://app.timelog.dk/local/WebServices/ProjectManagement/V1_1/ProjectManagementServiceSecure.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_ProjectManagementService"
+                contract="tlp.ProjectManagementService" name="BasicHttpBinding_ProjectManagementService" />
+            <endpoint address="https://app.timelog.dk/local/WebServices/Security/V1_0/SecurityServiceSecure.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_SecurityService1"
+                contract="tlpSecurity.SecurityService" name="BasicHttpBinding_SecurityService1" />
+        </client>
+    </system.serviceModel>
+</configuration>

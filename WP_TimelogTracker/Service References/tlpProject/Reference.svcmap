@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="67eb3e24-da33-448a-a5d6-a4ae56b7ff6e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>true</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ProjectManagementService.wsdl" MetadataType="Wsdl" ID="5fb9adfb-ed76-48bf-bae0-745c71f4cee0" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?wsdl" />
+    <MetadataFile FileName="ProjectManagementService.xsd" MetadataType="Schema" ID="bfee9c9e-48de-4651-94ac-11f0926d9ca3" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ProjectManagementService1.xsd" MetadataType="Schema" ID="bbd72bff-e4f5-4547-9c31-398798017594" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd5" />
+    <MetadataFile FileName="ProjectManagementService2.xsd" MetadataType="Schema" ID="82ef9caf-f985-4825-9fab-0ca422eebb89" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd3" />
+    <MetadataFile FileName="ProjectManagementService3.xsd" MetadataType="Schema" ID="07563a1f-f5e2-4b40-81b4-23b16195c57c" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd6" />
+    <MetadataFile FileName="ProjectManagementService4.xsd" MetadataType="Schema" ID="56160ff1-55ea-4986-a679-a9acd1c45db0" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ProjectManagementService5.xsd" MetadataType="Schema" ID="9bd2b934-f6e4-4886-b42b-14f682ef41ab" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd7" />
+    <MetadataFile FileName="ProjectManagementService6.xsd" MetadataType="Schema" ID="f7847183-36ee-4974-97e5-1eabb5370d44" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd4" />
+    <MetadataFile FileName="ProjectManagementService7.xsd" MetadataType="Schema" ID="b6d98623-ebe0-44f0-a84d-3873311752ba" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

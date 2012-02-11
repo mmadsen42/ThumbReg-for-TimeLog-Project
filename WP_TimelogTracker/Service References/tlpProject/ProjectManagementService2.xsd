@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+  <xs:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" />
+  <xs:complexType name="APIBase">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="APIBase" nillable="true" type="tns:APIBase" />
+  <xs:complexType name="ResponseOfTask">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="Task" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:APIBase">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" minOccurs="0" name="Return" nillable="true" type="q1:ArrayOfTask" />
+          <xs:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q2:ExecutionStatus" />
+          <xs:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseOfTask" nillable="true" type="tns:ResponseOfTask" />
+  <xs:complexType name="Request">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:APIBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Parameters" nillable="true" type="tns:ArrayOfRequestParameter" />
+          <xs:element minOccurs="0" name="ServiceClass" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MethodName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Request" nillable="true" type="tns:Request" />
+  <xs:complexType name="ArrayOfRequestParameter">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RequestParameter" nillable="true" type="tns:RequestParameter" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRequestParameter" nillable="true" type="tns:ArrayOfRequestParameter" />
+  <xs:complexType name="RequestParameter">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ParameterName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParameterValue" nillable="true" type="xs:anyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RequestParameter" nillable="true" type="tns:RequestParameter" />
+  <xs:complexType name="ArrayOfAPIMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="APIMessage" nillable="true" type="tns:APIMessage" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAPIMessage" nillable="true" type="tns:ArrayOfAPIMessage" />
+  <xs:complexType name="APIMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Severity" type="tns:APIMessageSeverity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="APIMessage" nillable="true" type="tns:APIMessage" />
+  <xs:simpleType name="APIMessageSeverity">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Error" />
+      <xs:enumeration value="Invalid" />
+      <xs:enumeration value="Message" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="APIMessageSeverity" nillable="true" type="tns:APIMessageSeverity" />
+  <xs:complexType name="ResponseOfAllocation">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="Allocation" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:APIBase">
+        <xs:sequence>
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" minOccurs="0" name="Return" nillable="true" type="q3:ArrayOfAllocation" />
+          <xs:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q4:ExecutionStatus" />
+          <xs:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseOfAllocation" nillable="true" type="tns:ResponseOfAllocation" />
+  <xs:complexType name="ResponseOfWorkUnit">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="WorkUnit" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:APIBase">
+        <xs:sequence>
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" minOccurs="0" name="Return" nillable="true" type="q5:ArrayOfWorkUnit" />
+          <xs:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q6:ExecutionStatus" />
+          <xs:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseOfWorkUnit" nillable="true" type="tns:ResponseOfWorkUnit" />
+  <xs:complexType name="BatchResponseOfWorkUnit">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="BatchResponseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="WorkUnit" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseOfBatchContainerOfWorkUnit">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BatchResponseOfWorkUnit" nillable="true" type="tns:BatchResponseOfWorkUnit" />
+  <xs:complexType name="ResponseOfBatchContainerOfWorkUnit">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="BatchContainerOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0">
+            <GenericParameter Name="WorkUnit" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:APIBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Return" nillable="true" type="tns:ArrayOfBatchContainerOfWorkUnit" />
+          <xs:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+          <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q7:ExecutionStatus" />
+          <xs:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseOfBatchContainerOfWorkUnit" nillable="true" type="tns:ResponseOfBatchContainerOfWorkUnit" />
+  <xs:complexType name="ArrayOfBatchContainerOfWorkUnit">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BatchContainerOfWorkUnit" nillable="true" type="tns:BatchContainerOfWorkUnit" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBatchContainerOfWorkUnit" nillable="true" type="tns:ArrayOfBatchContainerOfWorkUnit" />
+  <xs:complexType name="BatchContainerOfWorkUnit">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="BatchContainerOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="WorkUnit" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:APIBase">
+        <xs:sequence>
+          <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" minOccurs="0" name="Item" nillable="true" type="q8:WorkUnit" />
+          <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="Status" type="q9:ExecutionStatus" />
+          <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BatchContainerOfWorkUnit" nillable="true" type="tns:BatchContainerOfWorkUnit" />
+  <xs:complexType name="BatchResponseOfAllocation">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="BatchResponseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="Allocation" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseOfBatchContainerOfAllocation">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BatchResponseOfAllocation" nillable="true" type="tns:BatchResponseOfAllocation" />
+  <xs:complexType name="ResponseOfBatchContainerOfAllocation">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="BatchContainerOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0">
+            <GenericParameter Name="Allocation" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:APIBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Return" nillable="true" type="tns:ArrayOfBatchContainerOfAllocation" />
+          <xs:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+          <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q10:ExecutionStatus" />
+          <xs:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseOfBatchContainerOfAllocation" nillable="true" type="tns:ResponseOfBatchContainerOfAllocation" />
+  <xs:complexType name="ArrayOfBatchContainerOfAllocation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BatchContainerOfAllocation" nillable="true" type="tns:BatchContainerOfAllocation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBatchContainerOfAllocation" nillable="true" type="tns:ArrayOfBatchContainerOfAllocation" />
+  <xs:complexType name="BatchContainerOfAllocation">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="BatchContainerOf{0}" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="Allocation" Namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:APIBase">
+        <xs:sequence>
+          <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" minOccurs="0" name="Item" nillable="true" type="q11:Allocation" />
+          <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="Status" type="q12:ExecutionStatus" />
+          <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BatchContainerOfAllocation" nillable="true" type="tns:BatchContainerOfAllocation" />
+</xs:schema>

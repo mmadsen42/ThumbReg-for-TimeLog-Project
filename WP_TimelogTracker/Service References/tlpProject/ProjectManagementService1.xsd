@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" />
+  <xs:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.CRM.V1_0" />
+  <xs:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfTask">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Task" nillable="true" type="tns:Task" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTask" nillable="true" type="tns:ArrayOfTask" />
+  <xs:complexType name="Task">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" base="q1:APIBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="No" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+          <xs:element minOccurs="0" name="WBS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="IsParent" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ParentTaskID" type="xs:int" />
+          <xs:element minOccurs="0" name="SortOrder" type="xs:int" />
+          <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Details" nillable="true" type="tns:TaskDetails" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Task" nillable="true" type="tns:Task" />
+  <xs:complexType name="TaskDetails">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.CRM.V1_0" minOccurs="0" name="CustomerHeader" nillable="true" type="q2:CustomerHeader" />
+      <xs:element minOccurs="0" name="ProjectHeader" nillable="true" type="tns:ProjectHeader" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="tns:TaskType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TaskDetails" nillable="true" type="tns:TaskDetails" />
+  <xs:complexType name="ProjectHeader">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" base="q3:APIBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="No" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsGeneralProject" type="xs:boolean" />
+          <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ProjectHeader" nillable="true" type="tns:ProjectHeader" />
+  <xs:complexType name="TaskType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" base="q4:APIBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="ID2" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Name2" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TaskType" nillable="true" type="tns:TaskType" />
+  <xs:complexType name="ArrayOfAllocation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Allocation" nillable="true" type="tns:Allocation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAllocation" nillable="true" type="tns:ArrayOfAllocation" />
+  <xs:complexType name="Allocation">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q5="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" base="q5:APIBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+          <xs:element minOccurs="0" name="TaskID" type="xs:int" />
+          <xs:element minOccurs="0" name="HoursAllocated" type="xs:double" />
+          <xs:element minOccurs="0" name="TimeStamp" nillable="true" type="xs:base64Binary" />
+          <xs:element minOccurs="0" name="EmployeeInitials" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Allocation" nillable="true" type="tns:Allocation" />
+  <xs:complexType name="ArrayOfWorkUnit">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkUnit" nillable="true" type="tns:WorkUnit" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkUnit" nillable="true" type="tns:ArrayOfWorkUnit" />
+  <xs:complexType name="WorkUnit">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q6="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" base="q6:APIBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="GUID" type="ser:guid" />
+          <xs:element minOccurs="0" name="AllocationGUID" type="ser:guid" />
+          <xs:element minOccurs="0" name="TaskID" type="xs:int" />
+          <xs:element minOccurs="0" name="EmployeeInitials" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Duration" type="ser:duration" />
+          <xs:element minOccurs="0" name="StartDateTime" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="EndDateTime" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TimeStamp" nillable="true" type="xs:base64Binary" />
+          <xs:element minOccurs="0" name="IsEditable" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Details" nillable="true" type="tns:WorkUnitDetails" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WorkUnit" nillable="true" type="tns:WorkUnit" />
+  <xs:complexType name="WorkUnitDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TaskHeader" nillable="true" type="tns:TaskHeader" />
+      <xs:element minOccurs="0" name="ProjectHeader" nillable="true" type="tns:ProjectHeader" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.CRM.V1_0" minOccurs="0" name="CustomerHeader" nillable="true" type="q7:CustomerHeader" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WorkUnitDetails" nillable="true" type="tns:WorkUnitDetails" />
+  <xs:complexType name="TaskHeader">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q8="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" base="q8:APIBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="No" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+          <xs:element minOccurs="0" name="WBS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TaskHeader" nillable="true" type="tns:TaskHeader" />
+</xs:schema>

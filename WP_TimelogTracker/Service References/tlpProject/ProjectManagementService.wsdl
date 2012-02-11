@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.timelog.com/api/tlp/v1" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ProjectManagementService" targetNamespace="http://www.timelog.com/api/tlp/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.timelog.com/api/tlp/v1/Imports">
+      <xsd:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd4" namespace="http://www.timelog.com/api/tlp/v1" />
+      <xsd:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" />
+      <xsd:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Security.V1_0" />
+      <xsd:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" />
+      <xsd:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.ProjectManagement.V1_0" />
+      <xsd:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.CRM.V1_0" />
+      <xsd:import schemaLocation="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ProjectManagementService_IsAlive_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsAlive" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_IsAlive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsAliveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetTasksAllocatedToEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasksAllocatedToEmployee" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetTasksAllocatedToEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasksAllocatedToEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetAllocationsToEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllocationsToEmployee" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetAllocationsToEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllocationsToEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetEmployeeWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeWork" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetEmployeeWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_InsertWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertWork" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_InsertWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_UpdateWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWork" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_UpdateWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_DeleteWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteWork" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_DeleteWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_InsertAllocation_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertAllocation" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_InsertAllocation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertAllocationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ProjectManagementService">
+    <wsdl:operation name="IsAlive">
+      <wsdl:input wsaw:Action="IsAliveRequest" message="tns:ProjectManagementService_IsAlive_InputMessage" />
+      <wsdl:output wsaw:Action="IsAliveReponse" message="tns:ProjectManagementService_IsAlive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksAllocatedToEmployee">
+      <wsdl:input wsaw:Action="GetTasksAllocatedToEmployeeRequest" message="tns:ProjectManagementService_GetTasksAllocatedToEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="GetTasksAllocatedToEmployeeReponse" message="tns:ProjectManagementService_GetTasksAllocatedToEmployee_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllocationsToEmployee">
+      <wsdl:input wsaw:Action="GetAllocationsToEmployeeRequest" message="tns:ProjectManagementService_GetAllocationsToEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="GetAllocationsToEmployeeReponse" message="tns:ProjectManagementService_GetAllocationsToEmployee_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeWork">
+      <wsdl:input wsaw:Action="GetEmployeeWorkRequest" message="tns:ProjectManagementService_GetEmployeeWork_InputMessage" />
+      <wsdl:output wsaw:Action="GetEmployeeWorkReponse" message="tns:ProjectManagementService_GetEmployeeWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertWork">
+      <wsdl:input wsaw:Action="InsertWorkRequest" message="tns:ProjectManagementService_InsertWork_InputMessage" />
+      <wsdl:output wsaw:Action="InsertWorkReponse" message="tns:ProjectManagementService_InsertWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWork">
+      <wsdl:input wsaw:Action="UpdateWorkRequest" message="tns:ProjectManagementService_UpdateWork_InputMessage" />
+      <wsdl:output wsaw:Action="UpdateWorkReponse" message="tns:ProjectManagementService_UpdateWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWork">
+      <wsdl:input wsaw:Action="DeleteWorkRequest" message="tns:ProjectManagementService_DeleteWork_InputMessage" />
+      <wsdl:output wsaw:Action="DeleteWorkReponse" message="tns:ProjectManagementService_DeleteWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertAllocation">
+      <wsdl:input wsaw:Action="InsertAllocationRequest" message="tns:ProjectManagementService_InsertAllocation_InputMessage" />
+      <wsdl:output wsaw:Action="InsertAllocationReponse" message="tns:ProjectManagementService_InsertAllocation_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ProjectManagementService" type="tns:ProjectManagementService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IsAlive">
+      <soap:operation soapAction="IsAliveRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksAllocatedToEmployee">
+      <soap:operation soapAction="GetTasksAllocatedToEmployeeRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllocationsToEmployee">
+      <soap:operation soapAction="GetAllocationsToEmployeeRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeWork">
+      <soap:operation soapAction="GetEmployeeWorkRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertWork">
+      <soap:operation soapAction="InsertWorkRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWork">
+      <soap:operation soapAction="UpdateWorkRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWork">
+      <soap:operation soapAction="DeleteWorkRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertAllocation">
+      <soap:operation soapAction="InsertAllocationRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProjectManagementService">
+    <wsdl:port name="BasicHttpBinding_ProjectManagementService" binding="tns:BasicHttpBinding_ProjectManagementService">
+      <soap:address location="http://app.timelog.dk/local/WebServices/ProjectManagement/V1_0/ProjectManagementService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

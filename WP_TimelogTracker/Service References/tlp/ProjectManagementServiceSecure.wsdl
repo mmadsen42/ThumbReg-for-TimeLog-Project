@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.timelog.com/api/tlp/v1_1" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ProjectManagementServiceSecure" targetNamespace="http://www.timelog.com/api/tlp/v1_1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_ProjectManagementService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://www.timelog.com/api/tlp/v1_1">
+      <xsd:complexType name="SecurityToken">
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q1="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q1:APIBase">
+            <xsd:sequence>
+              <xsd:element name="Initials" nillable="true" type="xsd:string" />
+              <xsd:element name="Expires" type="xsd:dateTime" />
+              <xsd:element name="Hash" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="SecurityToken" nillable="true" type="tns:SecurityToken" />
+      <xsd:element name="IsAlive">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="IsAliveResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="IsAliveResult" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTasksAllocatedToEmployee">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="initials" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="token" nillable="true" type="tns:SecurityToken" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTasksAllocatedToEmployeeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetTasksAllocatedToEmployeeResult" nillable="true" type="tns:ResponseOfTask" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ResponseOfTask">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="ResponseOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="Task" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q2="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q2:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Return" nillable="true" type="tns:ArrayOfTask" />
+              <xsd:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+              <xsd:element xmlns:q3="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q3:ExecutionStatus" />
+              <xsd:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+              <xsd:element minOccurs="0" name="ErrorCode" type="xsd:int" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ResponseOfTask" nillable="true" type="tns:ResponseOfTask" />
+      <xsd:complexType name="ArrayOfTask">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Task" nillable="true" type="tns:Task" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfTask" nillable="true" type="tns:ArrayOfTask" />
+      <xsd:complexType name="Task">
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q4="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q4:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ID" type="xsd:int" />
+              <xsd:element minOccurs="0" name="Name" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="No" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="IsActive" type="xsd:boolean" />
+              <xsd:element minOccurs="0" name="WBS" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="StartDate" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="EndDate" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="IsParent" type="xsd:boolean" />
+              <xsd:element minOccurs="0" name="ParentTaskID" type="xsd:int" />
+              <xsd:element minOccurs="0" name="SortOrder" type="xsd:int" />
+              <xsd:element minOccurs="0" name="FullName" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="Details" nillable="true" type="tns:TaskDetails" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Task" nillable="true" type="tns:Task" />
+      <xsd:complexType name="TaskDetails">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="CustomerHeader" nillable="true" type="tns:CustomerHeader" />
+          <xsd:element minOccurs="0" name="ProjectHeader" nillable="true" type="tns:ProjectHeader" />
+          <xsd:element minOccurs="0" name="Type" nillable="true" type="tns:TaskType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="TaskDetails" nillable="true" type="tns:TaskDetails" />
+      <xsd:complexType name="CustomerHeader">
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q5="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q5:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ID" type="xsd:int" />
+              <xsd:element minOccurs="0" name="Name" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="No" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="GUID" type="ser:guid" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="CustomerHeader" nillable="true" type="tns:CustomerHeader" />
+      <xsd:complexType name="ProjectHeader">
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q6="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q6:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ID" type="xsd:int" />
+              <xsd:element minOccurs="0" name="Name" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="No" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="IsActive" type="xsd:boolean" />
+              <xsd:element minOccurs="0" name="IsGeneralProject" type="xsd:boolean" />
+              <xsd:element minOccurs="0" name="StartDate" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="EndDate" type="xsd:dateTime" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ProjectHeader" nillable="true" type="tns:ProjectHeader" />
+      <xsd:complexType name="TaskType">
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q7="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q7:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ID" type="xsd:int" />
+              <xsd:element minOccurs="0" name="ID2" type="xsd:int" />
+              <xsd:element minOccurs="0" name="Name" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="Name2" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="TaskType" nillable="true" type="tns:TaskType" />
+      <xsd:complexType name="Request">
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q8="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q8:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Parameters" nillable="true" type="tns:ArrayOfRequestParameter" />
+              <xsd:element minOccurs="0" name="ServiceClass" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="MethodName" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Request" nillable="true" type="tns:Request" />
+      <xsd:complexType name="ArrayOfRequestParameter">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="RequestParameter" nillable="true" type="tns:RequestParameter" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfRequestParameter" nillable="true" type="tns:ArrayOfRequestParameter" />
+      <xsd:complexType name="RequestParameter">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Name" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Value" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="RequestParameter" nillable="true" type="tns:RequestParameter" />
+      <xsd:complexType name="ArrayOfAPIMessage">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="APIMessage" nillable="true" type="tns:APIMessage" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfAPIMessage" nillable="true" type="tns:ArrayOfAPIMessage" />
+      <xsd:complexType name="APIMessage">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Message" nillable="true" type="xsd:string" />
+          <xsd:element xmlns:q9="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" minOccurs="0" name="Severity" type="q9:APIMessageSeverity" />
+          <xsd:element minOccurs="0" name="ErrorCode" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="APIMessage" nillable="true" type="tns:APIMessage" />
+      <xsd:element name="GetTasksBySearchText">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="critiria" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="token" nillable="true" type="tns:SecurityToken" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTasksBySearchTextResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetTasksBySearchTextResult" nillable="true" type="tns:ResponseOfTask" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAllocationsToEmployee">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="initials" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="token" nillable="true" type="tns:SecurityToken" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAllocationsToEmployeeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetAllocationsToEmployeeResult" nillable="true" type="tns:ResponseOfAllocation" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ResponseOfAllocation">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="ResponseOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="Allocation" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q10="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q10:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Return" nillable="true" type="tns:ArrayOfAllocation" />
+              <xsd:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+              <xsd:element xmlns:q11="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q11:ExecutionStatus" />
+              <xsd:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+              <xsd:element minOccurs="0" name="ErrorCode" type="xsd:int" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ResponseOfAllocation" nillable="true" type="tns:ResponseOfAllocation" />
+      <xsd:complexType name="ArrayOfAllocation">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Allocation" nillable="true" type="tns:Allocation" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfAllocation" nillable="true" type="tns:ArrayOfAllocation" />
+      <xsd:complexType name="Allocation">
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q12="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q12:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="GUID" type="ser:guid" />
+              <xsd:element minOccurs="0" name="TaskID" type="xsd:int" />
+              <xsd:element minOccurs="0" name="HoursAllocated" type="xsd:double" />
+              <xsd:element minOccurs="0" name="TimeStamp" nillable="true" type="xsd:base64Binary" />
+              <xsd:element minOccurs="0" name="EmployeeInitials" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Allocation" nillable="true" type="tns:Allocation" />
+      <xsd:element name="GetEmployeeWork">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="initials" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="startDate" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="endDate" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="token" nillable="true" type="tns:SecurityToken" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetEmployeeWorkResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetEmployeeWorkResult" nillable="true" type="tns:ResponseOfWorkUnit" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ResponseOfWorkUnit">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="ResponseOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="WorkUnit" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q13="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q13:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Return" nillable="true" type="tns:ArrayOfWorkUnit" />
+              <xsd:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+              <xsd:element xmlns:q14="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q14:ExecutionStatus" />
+              <xsd:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+              <xsd:element minOccurs="0" name="ErrorCode" type="xsd:int" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ResponseOfWorkUnit" nillable="true" type="tns:ResponseOfWorkUnit" />
+      <xsd:complexType name="ArrayOfWorkUnit">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="WorkUnit" nillable="true" type="tns:WorkUnit" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfWorkUnit" nillable="true" type="tns:ArrayOfWorkUnit" />
+      <xsd:complexType name="WorkUnit">
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q15="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q15:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="GUID" type="ser:guid" />
+              <xsd:element minOccurs="0" name="AllocationGUID" type="ser:guid" />
+              <xsd:element minOccurs="0" name="TaskID" type="xsd:int" />
+              <xsd:element minOccurs="0" name="EmployeeInitials" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="Duration" type="ser:duration" />
+              <xsd:element minOccurs="0" name="StartDateTime" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="EndDateTime" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="Description" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="TimeStamp" nillable="true" type="xsd:base64Binary" />
+              <xsd:element minOccurs="0" name="IsEditable" type="xsd:boolean" />
+              <xsd:element minOccurs="0" name="Details" nillable="true" type="tns:WorkUnitDetails" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="WorkUnit" nillable="true" type="tns:WorkUnit" />
+      <xsd:complexType name="WorkUnitDetails">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="TaskHeader" nillable="true" type="tns:TaskHeader" />
+          <xsd:element minOccurs="0" name="ProjectHeader" nillable="true" type="tns:ProjectHeader" />
+          <xsd:element minOccurs="0" name="CustomerHeader" nillable="true" type="tns:CustomerHeader" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="WorkUnitDetails" nillable="true" type="tns:WorkUnitDetails" />
+      <xsd:complexType name="TaskHeader">
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q16="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q16:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ID" type="xsd:int" />
+              <xsd:element minOccurs="0" name="Name" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="No" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="IsActive" type="xsd:boolean" />
+              <xsd:element minOccurs="0" name="WBS" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="FullName" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="TaskHeader" nillable="true" type="tns:TaskHeader" />
+      <xsd:element name="InsertWork">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="work" nillable="true" type="tns:ArrayOfWorkUnit" />
+            <xsd:element minOccurs="0" name="source" type="xsd:int" />
+            <xsd:element minOccurs="0" name="token" nillable="true" type="tns:SecurityToken" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="InsertWorkResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="InsertWorkResult" nillable="true" type="tns:BatchResponseOfWorkUnit" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="BatchResponseOfWorkUnit">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="BatchResponseOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="WorkUnit" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ResponseOfBatchContainerOfWorkUnit">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="BatchResponseOfWorkUnit" nillable="true" type="tns:BatchResponseOfWorkUnit" />
+      <xsd:complexType name="ResponseOfBatchContainerOfWorkUnit">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="ResponseOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="BatchContainerOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1">
+                <GenericParameter Name="WorkUnit" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+              </GenericParameter>
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q17="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q17:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Return" nillable="true" type="tns:ArrayOfBatchContainerOfWorkUnit" />
+              <xsd:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+              <xsd:element xmlns:q18="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q18:ExecutionStatus" />
+              <xsd:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+              <xsd:element minOccurs="0" name="ErrorCode" type="xsd:int" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ResponseOfBatchContainerOfWorkUnit" nillable="true" type="tns:ResponseOfBatchContainerOfWorkUnit" />
+      <xsd:complexType name="ArrayOfBatchContainerOfWorkUnit">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BatchContainerOfWorkUnit" nillable="true" type="tns:BatchContainerOfWorkUnit" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfBatchContainerOfWorkUnit" nillable="true" type="tns:ArrayOfBatchContainerOfWorkUnit" />
+      <xsd:complexType name="BatchContainerOfWorkUnit">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="BatchContainerOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="WorkUnit" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q19="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q19:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Item" nillable="true" type="tns:WorkUnit" />
+              <xsd:element xmlns:q20="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="Status" type="q20:ExecutionStatus" />
+              <xsd:element minOccurs="0" name="Message" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="BatchContainerOfWorkUnit" nillable="true" type="tns:BatchContainerOfWorkUnit" />
+      <xsd:element name="UpdateWork">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="work" nillable="true" type="tns:ArrayOfWorkUnit" />
+            <xsd:element minOccurs="0" name="source" type="xsd:int" />
+            <xsd:element minOccurs="0" name="token" nillable="true" type="tns:SecurityToken" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateWorkResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="UpdateWorkResult" nillable="true" type="tns:BatchResponseOfWorkUnit" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteWork">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="work" nillable="true" type="q21:ArrayOfguid" />
+            <xsd:element minOccurs="0" name="source" type="xsd:int" />
+            <xsd:element minOccurs="0" name="token" nillable="true" type="tns:SecurityToken" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteWorkResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="DeleteWorkResult" nillable="true" type="tns:BatchResponseOfWorkUnit" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="InsertAllocation">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="allocations" nillable="true" type="tns:ArrayOfAllocation" />
+            <xsd:element minOccurs="0" name="token" nillable="true" type="tns:SecurityToken" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="InsertAllocationResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="InsertAllocationResult" nillable="true" type="tns:BatchResponseOfAllocation" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="BatchResponseOfAllocation">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="BatchResponseOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="Allocation" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ResponseOfBatchContainerOfAllocation">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="BatchResponseOfAllocation" nillable="true" type="tns:BatchResponseOfAllocation" />
+      <xsd:complexType name="ResponseOfBatchContainerOfAllocation">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="ResponseOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="BatchContainerOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1">
+                <GenericParameter Name="Allocation" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+              </GenericParameter>
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q22="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q22:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Return" nillable="true" type="tns:ArrayOfBatchContainerOfAllocation" />
+              <xsd:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+              <xsd:element xmlns:q23="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q23:ExecutionStatus" />
+              <xsd:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+              <xsd:element minOccurs="0" name="ErrorCode" type="xsd:int" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ResponseOfBatchContainerOfAllocation" nillable="true" type="tns:ResponseOfBatchContainerOfAllocation" />
+      <xsd:complexType name="ArrayOfBatchContainerOfAllocation">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BatchContainerOfAllocation" nillable="true" type="tns:BatchContainerOfAllocation" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfBatchContainerOfAllocation" nillable="true" type="tns:ArrayOfBatchContainerOfAllocation" />
+      <xsd:complexType name="BatchContainerOfAllocation">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="BatchContainerOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="Allocation" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q24="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q24:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Item" nillable="true" type="tns:Allocation" />
+              <xsd:element xmlns:q25="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="Status" type="q25:ExecutionStatus" />
+              <xsd:element minOccurs="0" name="Message" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="BatchContainerOfAllocation" nillable="true" type="tns:BatchContainerOfAllocation" />
+      <xsd:element name="CreateProjectFromTemplate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="projectTemplateName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="projectName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="projectNo" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="customerName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="projectManagerInitials" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="accountManagerInitials" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="departmentNo" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="useProjectNumberSeries" type="xsd:boolean" />
+            <xsd:element minOccurs="0" name="useTasksAndMileStonesFromTemplate" type="xsd:boolean" />
+            <xsd:element minOccurs="0" name="useResourceGroupFromTemplate" type="xsd:boolean" />
+            <xsd:element minOccurs="0" name="useAllocationsFromTemplate" type="xsd:boolean" />
+            <xsd:element minOccurs="0" name="usePaymentPlanFromTemplate" type="xsd:boolean" />
+            <xsd:element minOccurs="0" name="token" nillable="true" type="tns:SecurityToken" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateProjectFromTemplateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CreateProjectFromTemplateResult" nillable="true" type="tns:BatchResponseOfProject" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="BatchResponseOfProject">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="BatchResponseOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="Project" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ResponseOfBatchContainerOfProject">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="BatchResponseOfProject" nillable="true" type="tns:BatchResponseOfProject" />
+      <xsd:complexType name="ResponseOfBatchContainerOfProject">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="ResponseOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="BatchContainerOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1">
+                <GenericParameter Name="Project" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+              </GenericParameter>
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q26="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q26:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Return" nillable="true" type="tns:ArrayOfBatchContainerOfProject" />
+              <xsd:element minOccurs="0" name="ReturnTypeDescription" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="Request" nillable="true" type="tns:Request" />
+              <xsd:element xmlns:q27="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="ResponseState" type="q27:ExecutionStatus" />
+              <xsd:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfAPIMessage" />
+              <xsd:element minOccurs="0" name="ErrorCode" type="xsd:int" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ResponseOfBatchContainerOfProject" nillable="true" type="tns:ResponseOfBatchContainerOfProject" />
+      <xsd:complexType name="ArrayOfBatchContainerOfProject">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BatchContainerOfProject" nillable="true" type="tns:BatchContainerOfProject" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfBatchContainerOfProject" nillable="true" type="tns:ArrayOfBatchContainerOfProject" />
+      <xsd:complexType name="BatchContainerOfProject">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <GenericType Name="BatchContainerOf{0}" Namespace="http://www.timelog.com/api/tlp/v1_1" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="Project" Namespace="http://www.timelog.com/api/tlp/v1_1" />
+            </GenericType>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q28="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q28:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Item" nillable="true" type="tns:Project" />
+              <xsd:element xmlns:q29="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" minOccurs="0" name="Status" type="q29:ExecutionStatus" />
+              <xsd:element minOccurs="0" name="Message" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="BatchContainerOfProject" nillable="true" type="tns:BatchContainerOfProject" />
+      <xsd:complexType name="Project">
+        <xsd:complexContent mixed="false">
+          <xsd:extension xmlns:q30="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" base="q30:APIBase">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ID" type="xsd:int" />
+              <xsd:element minOccurs="0" name="Name" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="No" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="IsActive" type="xsd:boolean" />
+              <xsd:element minOccurs="0" name="IsGeneralProject" type="xsd:boolean" />
+              <xsd:element minOccurs="0" name="StartDate" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="EndDate" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="Details" nillable="true" type="tns:ProjectDetails" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Project" nillable="true" type="tns:Project" />
+      <xsd:complexType name="ProjectDetails">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="CustomerHeader" nillable="true" type="tns:CustomerHeader" />
+          <xsd:element minOccurs="0" name="TaskHeaders" nillable="true" type="tns:ArrayOfTaskHeader" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ProjectDetails" nillable="true" type="tns:ProjectDetails" />
+      <xsd:complexType name="ArrayOfTaskHeader">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="TaskHeader" nillable="true" type="tns:TaskHeader" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfTaskHeader" nillable="true" type="tns:ArrayOfTaskHeader" />
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_1">
+      <xsd:complexType name="APIBase">
+        <xsd:sequence />
+      </xsd:complexType>
+      <xsd:element name="APIBase" nillable="true" type="tns:APIBase" />
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.Common">
+      <xsd:simpleType name="ExecutionStatus">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="NotSet" />
+          <xsd:enumeration value="Success" />
+          <xsd:enumeration value="Invalid" />
+          <xsd:enumeration value="Error" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="ExecutionStatus" nillable="true" type="tns:ExecutionStatus" />
+    </xsd:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xsd:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0">
+      <xsd:simpleType name="APIMessageSeverity">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Error" />
+          <xsd:enumeration value="Invalid" />
+          <xsd:enumeration value="Message" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="APIMessageSeverity" nillable="true" type="tns:APIMessageSeverity" />
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+      <xsd:complexType name="ArrayOfguid">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="guid" type="ser:guid" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfguid" nillable="true" type="tns:ArrayOfguid" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ProjectManagementService_IsAlive_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsAlive" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_IsAlive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsAliveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetTasksAllocatedToEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasksAllocatedToEmployee" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetTasksAllocatedToEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasksAllocatedToEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetTasksBySearchText_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasksBySearchText" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetTasksBySearchText_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasksBySearchTextResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetAllocationsToEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllocationsToEmployee" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetAllocationsToEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllocationsToEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetEmployeeWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeWork" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_GetEmployeeWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_InsertWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertWork" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_InsertWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_UpdateWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWork" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_UpdateWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_DeleteWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteWork" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_DeleteWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_InsertAllocation_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertAllocation" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_InsertAllocation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertAllocationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_CreateProjectFromTemplate_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProjectFromTemplate" />
+  </wsdl:message>
+  <wsdl:message name="ProjectManagementService_CreateProjectFromTemplate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProjectFromTemplateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ProjectManagementService">
+    <wsdl:operation name="IsAlive">
+      <wsdl:input wsaw:Action="IsAliveRequest" message="tns:ProjectManagementService_IsAlive_InputMessage" />
+      <wsdl:output wsaw:Action="IsAliveReponse" message="tns:ProjectManagementService_IsAlive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksAllocatedToEmployee">
+      <wsdl:input wsaw:Action="GetTasksAllocatedToEmployeeRequest" message="tns:ProjectManagementService_GetTasksAllocatedToEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="GetTasksAllocatedToEmployeeReponse" message="tns:ProjectManagementService_GetTasksAllocatedToEmployee_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksBySearchText">
+      <wsdl:input wsaw:Action="GetTasksBySearchTextRequest" message="tns:ProjectManagementService_GetTasksBySearchText_InputMessage" />
+      <wsdl:output wsaw:Action="GetTasksBySearchTextReponse" message="tns:ProjectManagementService_GetTasksBySearchText_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllocationsToEmployee">
+      <wsdl:input wsaw:Action="GetAllocationsToEmployeeRequest" message="tns:ProjectManagementService_GetAllocationsToEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="GetAllocationsToEmployeeReponse" message="tns:ProjectManagementService_GetAllocationsToEmployee_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeWork">
+      <wsdl:input wsaw:Action="GetEmployeeWorkRequest" message="tns:ProjectManagementService_GetEmployeeWork_InputMessage" />
+      <wsdl:output wsaw:Action="GetEmployeeWorkReponse" message="tns:ProjectManagementService_GetEmployeeWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertWork">
+      <wsdl:input wsaw:Action="InsertWorkRequest" message="tns:ProjectManagementService_InsertWork_InputMessage" />
+      <wsdl:output wsaw:Action="InsertWorkReponse" message="tns:ProjectManagementService_InsertWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWork">
+      <wsdl:input wsaw:Action="UpdateWorkRequest" message="tns:ProjectManagementService_UpdateWork_InputMessage" />
+      <wsdl:output wsaw:Action="UpdateWorkReponse" message="tns:ProjectManagementService_UpdateWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWork">
+      <wsdl:input wsaw:Action="DeleteWorkRequest" message="tns:ProjectManagementService_DeleteWork_InputMessage" />
+      <wsdl:output wsaw:Action="DeleteWorkReponse" message="tns:ProjectManagementService_DeleteWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertAllocation">
+      <wsdl:input wsaw:Action="InsertAllocationRequest" message="tns:ProjectManagementService_InsertAllocation_InputMessage" />
+      <wsdl:output wsaw:Action="InsertAllocationReponse" message="tns:ProjectManagementService_InsertAllocation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProjectFromTemplate">
+      <wsdl:input wsaw:Action="CreateProjectFromTemplateRequest" message="tns:ProjectManagementService_CreateProjectFromTemplate_InputMessage" />
+      <wsdl:output wsaw:Action="CreateProjectFromTemplateReponse" message="tns:ProjectManagementService_CreateProjectFromTemplate_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ProjectManagementService" type="tns:ProjectManagementService">
+    <wsp:PolicyReference URI="#BasicHttpBinding_ProjectManagementService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IsAlive">
+      <soap:operation soapAction="IsAliveRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksAllocatedToEmployee">
+      <soap:operation soapAction="GetTasksAllocatedToEmployeeRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksBySearchText">
+      <soap:operation soapAction="GetTasksBySearchTextRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllocationsToEmployee">
+      <soap:operation soapAction="GetAllocationsToEmployeeRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeWork">
+      <soap:operation soapAction="GetEmployeeWorkRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertWork">
+      <soap:operation soapAction="InsertWorkRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWork">
+      <soap:operation soapAction="UpdateWorkRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWork">
+      <soap:operation soapAction="DeleteWorkRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertAllocation">
+      <soap:operation soapAction="InsertAllocationRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProjectFromTemplate">
+      <soap:operation soapAction="CreateProjectFromTemplateRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProjectManagementServiceSecure">
+    <wsdl:port name="BasicHttpBinding_ProjectManagementService" binding="tns:BasicHttpBinding_ProjectManagementService">
+      <soap:address location="https://app.timelog.dk/local/WebServices/ProjectManagement/V1_1/ProjectManagementServiceSecure.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

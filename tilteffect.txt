@@ -1,0 +1,45 @@
+<controls:Pivot Title="SELECT A TASK" BorderBrush="{StaticResource PhoneBorderBrush}" Foreground="{StaticResource PhoneAccentBrush}" Background="{StaticResource PhoneBackgroundBrush}">
+            <!--Pivot item one-->
+            <controls:PivotItem x:Name="AllTaskPivot" Header="All">
+            	<ListBox x:Name="AllTaskListBox" Margin="0,0,-12,0" ItemsSource="{Binding Tasks}" SelectionChanged="TaskListBox_SelectionChanged" Toolkit:TiltEffect.IsTiltEnabled="True" >
+            		<ListBox.ItemTemplate>
+            			<DataTemplate>
+            				<StackPanel Margin="0,0,0,17" Width="432" Height="78">
+            					<TextBlock Text="{Binding Name}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+            					<TextBlock Text="{Binding WBS}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+            				</StackPanel>
+            			</DataTemplate>
+            		</ListBox.ItemTemplate>
+            	</ListBox>				         
+			</controls:PivotItem>
+            <!--Pivot item one-->
+            <controls:PivotItem Header="Projects" x:Name="ProjectPivot" ContentTemplate="{StaticResource PivotHeader}" Visibility="Collapsed">
+                <!--Double line list with text wrapping-->
+                <ListBox x:Name="ProjectTaskListBox" Margin="0,0,-12,0" ItemsSource="{Binding Projects}" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                          <StackPanel Margin="0,0,0,17" Width="432" Height="78">
+                              <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" Toolkit:TiltEffect.IsTiltEnabled="True" />
+                                <TextBlock Text="{Binding No}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                          </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PivotItem>
+ 
+            <!--Pivot item two-->
+            <controls:PivotItem Header="Customer" x:Name="CustomerPivot" > 
+                <!--Triple line list no text wrapping-->
+                <ListBox x:Name="CustomerTaskListBox" Margin="0,0,-12,0" ItemsSource="{Binding Tasks}" SelectionChanged="TaskListBox_SelectionChanged" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,17" Width="432" Height="78">
+                                    <TextBlock Text="{Binding Name}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                    <TextBlock Text="{Binding WBS}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+            </controls:PivotItem>
+        </controls:Pivot>
+ 

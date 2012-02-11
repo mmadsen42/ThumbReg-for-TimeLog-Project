@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="71401c50-1f3c-40ef-ae10-966faf885c03" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>true</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://app.timelog.dk/local/WebServices/Security/V1_0/SecurityService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SecurityService.xsd" MetadataType="Schema" ID="ce28a680-d86a-4ab1-8c85-48b482c722ed" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/Security/V1_0/SecurityService.svc?xsd=xsd2" />
+    <MetadataFile FileName="SecurityService.wsdl" MetadataType="Wsdl" ID="f9ddc356-679b-489d-b77b-295ff49ba87b" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/Security/V1_0/SecurityService.svc?wsdl" />
+    <MetadataFile FileName="SecurityService1.xsd" MetadataType="Schema" ID="7f4d8f02-903f-48df-a8ee-d85c50dfba47" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/Security/V1_0/SecurityService.svc?xsd=xsd4" />
+    <MetadataFile FileName="SecurityService2.xsd" MetadataType="Schema" ID="ee9dd22b-04c1-48f7-835e-ce1895f9e8ab" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/Security/V1_0/SecurityService.svc?xsd=xsd1" />
+    <MetadataFile FileName="SecurityService3.xsd" MetadataType="Schema" ID="95aa67ee-a45d-41a7-9cf4-31125f623da1" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/Security/V1_0/SecurityService.svc?xsd=xsd0" />
+    <MetadataFile FileName="SecurityService4.xsd" MetadataType="Schema" ID="3f150c38-8333-4297-b66f-dd08a4a81b48" SourceId="1" SourceUrl="http://app.timelog.dk/local/WebServices/Security/V1_0/SecurityService.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Security.V1_0" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Security.V1_0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://app.timelog.dk/local/WebServices/Security/V1_0/SecurityService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" />
+  <xs:complexType name="ArrayOfSecurityToken">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SecurityToken" nillable="true" type="tns:SecurityToken" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSecurityToken" nillable="true" type="tns:ArrayOfSecurityToken" />
+  <xs:complexType name="SecurityToken">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" base="q1:APIBase">
+        <xs:sequence>
+          <xs:element name="Initials" nillable="true" type="xs:string" />
+          <xs:element name="Expires" type="xs:dateTime" />
+          <xs:element name="Hash" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SiteCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SecurityToken" nillable="true" type="tns:SecurityToken" />
+  <xs:complexType name="ArrayOfTimeRegistrationSettings">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TimeRegistrationSettings" nillable="true" type="tns:TimeRegistrationSettings" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTimeRegistrationSettings" nillable="true" type="tns:ArrayOfTimeRegistrationSettings" />
+  <xs:complexType name="TimeRegistrationSettings">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" base="q2:APIBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="UseCaseSensetiveLogin" type="xs:boolean" />
+          <xs:element minOccurs="0" name="UseWBS" type="xs:boolean" />
+          <xs:element minOccurs="0" name="UseTaskUniqueID" type="xs:boolean" />
+          <xs:element minOccurs="0" name="CustomerSortByNo" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ProjectSortByNo" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FormatingLCID" type="xs:int" />
+          <xs:element minOccurs="0" name="UseStartEndTime" type="xs:boolean" />
+          <xs:element minOccurs="0" name="TimeTrackingShowCustomerNo" type="xs:boolean" />
+          <xs:element minOccurs="0" name="TimeTrackingShowCustomerName" type="xs:boolean" />
+          <xs:element minOccurs="0" name="TimeTrackingShowProjectNo" type="xs:boolean" />
+          <xs:element minOccurs="0" name="TimeTrackingShowWBS" type="xs:boolean" />
+          <xs:element minOccurs="0" name="TimeTrackingShowTaskID" type="xs:boolean" />
+          <xs:element minOccurs="0" name="AllowTimetrackingOnAllActiveProjects" type="xs:boolean" />
+          <xs:element minOccurs="0" name="TimeTrackingAllowRegistrationOverlap" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TimeRegistrationSettings" nillable="true" type="tns:TimeRegistrationSettings" />
+  <xs:complexType name="ArrayOfUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="User" nillable="true" type="tns:User" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUser" nillable="true" type="tns:ArrayOfUser" />
+  <xs:complexType name="User">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/TimeLog.TLP.API.Proxy.Communication.V1_0" base="q3:APIBase">
+        <xs:sequence>
+          <xs:element name="ID" type="xs:int" />
+          <xs:element name="Initials" nillable="true" type="xs:string" />
+          <xs:element name="FirstName" nillable="true" type="xs:string" />
+          <xs:element name="LastName" nillable="true" type="xs:string" />
+          <xs:element name="LanguageID" type="xs:int" />
+          <xs:element name="AccessLevel" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="User" nillable="true" type="tns:User" />
+</xs:schema>
