@@ -92,5 +92,10 @@ namespace WP_TimelogTracker
             //TODO: Load date when navigating back on page from tile
            ShellTile.Create(new Uri("/AddRegistrationPage.xaml?selectedItem=" + _selected.ID, UriKind.Relative), _tiledata);
         }
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
+        }
     }
 }

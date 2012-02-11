@@ -51,7 +51,8 @@
 		<shell:ApplicationBar>            
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.sync.rest.png" Text="Syncronize" Click="ReloadTasks_Click" />
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="Syncronize" Click="ReloadTasks_Click"/>                
+                <shell:ApplicationBarMenuItem Text="Syncronize" Click="ReloadTasks_Click"/>
+                <shell:ApplicationBarMenuItem Text="Settings"  Click="Settings_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
