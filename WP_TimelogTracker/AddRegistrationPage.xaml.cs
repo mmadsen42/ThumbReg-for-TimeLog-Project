@@ -29,6 +29,7 @@ namespace WP_TimelogTracker
 
         void RegistrationViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            Progress.IsVisible = false;
             txtStatus.Text = App.RegistrationViewModel.Status;
         }
 
@@ -63,7 +64,7 @@ namespace WP_TimelogTracker
             int _totalminutes = (int)slider1.Value;
             _hours = _totalminutes/60;
             _minutes = _totalminutes - (60 * _hours);
-           textBox1.Text = String.Format("{0}:{1:D2}", _hours, _minutes);
+            inpDuration.Value = new TimeSpan(_hours, _minutes, 0);
         }
 
         private void textBox1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -80,19 +81,21 @@ namespace WP_TimelogTracker
              int _totalminutes = (int)slider1.Value;
             _hours = _totalminutes/60;
             _minutes = _totalminutes - (60 * _hours);
-           textBox1.Text = String.Format("{0}:{1}", _hours, _minutes);
+            inpDuration.Value = new TimeSpan(_hours, _minutes,0);
 
         }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
+            Progress.IsVisible = true;
             var _wpTask = ((WPTask)DataContext);
             tlp.Task _tlpTask = new tlp.Task{
                 ID = _wpTask.ID,
                 No = _wpTask.No,
                 Name = _wpTask.Name
             };
-            App.RegistrationViewModel.SendRegistrationToServer(_tlpTask, new TimeSpan(_hours, _minutes, 0), "From WP7 tracker");
+            App.RegistrationViewModel.SendRegistrationToServer(_tlpTask, new TimeSpan(_hours, _minutes, 0), txtComment.Text);
         }
 
         //private void ddHours_SelectionChanged(object sender, SelectionChangedEventArgs e)

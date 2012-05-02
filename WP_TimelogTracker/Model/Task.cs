@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 
 namespace WP_TimelogTracker.Model
 {
+   
     public class WPTask
     {
         public WPTask(int id, string fullName, string wbs, string  name, int sortOrder, string projectName, string customerName) {
@@ -23,14 +24,14 @@ namespace WP_TimelogTracker.Model
             CustomerName = customerName;
         }
 
-        public string FullName { get; private set; }
-        public string WBS { get; private set; }
-        public int SortOrder { get; private set; }
-        public string ProjectName { get; private set; }
-        public string CustomerName { get; private set; }
-        public string No { get; private set; }
-        public string Name { get; private set; }
-        public int ID { get; private set; }
+        public string FullName { get; set; }
+        public string WBS { get; set; }
+        public int SortOrder { get; set; }
+        public string ProjectName { get; set; }
+        public string CustomerName { get; set; }
+        public string No { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
 
     }
 }

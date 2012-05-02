@@ -19,16 +19,16 @@ namespace WP_TimelogTracker
     public partial class MainPage : PhoneApplicationPage
     {
        
-        // Constructor
         public MainPage()
         {
             DataContext = App.ViewModel;
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             App.ViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ProjectViewModel_PropertyChanged);
+            
         }
 
-        // Load data for the ViewModel Items
+       
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             // Set the data context of the listbox control to the sample data
@@ -36,14 +36,14 @@ namespace WP_TimelogTracker
 
             if (!App.ViewModel.IsDataLoaded)
             {
-
-
-                //App.ViewModel.LoadSampleData();
-
-
+                if (!String.IsNullOrWhiteSpace(App.IdentityViewModel.User))
+                {
+                    App.ViewModel.LoadData();
+                }
+                else { 
+                    NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
+                }
             }
-            //App.ViewModel.Tasks.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Tasks_CollectionChanged);
-
         }
 
 
@@ -61,14 +61,23 @@ namespace WP_TimelogTracker
 
         private void ReloadTasks_Click(object sender, EventArgs e)
         {
-            Progress.IsVisible = true;
-            App.ViewModel.LoadData();
-            Progress.IsVisible = false;
+            try
+            {
+                App.ViewModel.LoadData();
+            }
+            catch (Exception ex)
+            {
 
+                MessageBoxResult _return =  MessageBox.Show(ex.Message +Environment.NewLine + " Check Username and Password?", "Connection error", MessageBoxButton.OKCancel);
+                if(_return == MessageBoxResult.OK){
+                    NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
+                }
+            }            
+            
         }
 
         private void MenuItemPinToStart_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             WPTask _selected = ((sender as MenuItem).DataContext) as WPTask;
             if (_selected != null)
             {
@@ -92,9 +101,21 @@ namespace WP_TimelogTracker
         }
 
         void ProjectViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) { 
-            if(e.PropertyName.Equals("LoadInProgress")){
+            if(e.PropertyName.Equals("LoadInProgress")){               
                 Progress.IsVisible = App.ViewModel.LoadInProgress;
             }
         }
+
+        private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            App.ViewModel.FilterTask(txtFilter.Text);
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+       
     }
 }

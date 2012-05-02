@@ -24,9 +24,9 @@
     <Tokens>
       <PrimaryToken TokenID="WP_TimelogTrackerToken" TaskName="_default">
         <TemplateType5>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Background.jpg</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">ApplicationIcon.jpg</BackgroundImageURI>
           <Count>0</Count>
-          <Title>ThumpReg</Title>
+          <Title>Thumb Reg for Timelog Project</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

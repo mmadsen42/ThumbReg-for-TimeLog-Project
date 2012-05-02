@@ -23,7 +23,6 @@ C:\Users\mrm\Documents\Visual Studio 2010\Projects\WP_TimelogTracker\WP_TimelogT
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\ResolveAssemblyReference.cache
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\App.g.i.cs
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\AddRegistrationPage.g.i.cs
-C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\Login.g.i.cs
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\MainPage.g.i.cs
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\Settings.g.i.cs
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\WP_TimelogTracker.g.resources
@@ -39,7 +38,5 @@ C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Release\Microsof
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Release\Microsoft.Phone.Controls.Toolkit.dll
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Release\Microsoft.Phone.Controls.xml
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Release\Microsoft.Phone.Controls.Maps.xml
-C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Release\Microsoft.Phone.Controls.Toolkit.pdb
-C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Release\Microsoft.Phone.Controls.Toolkit.xml
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\WP_TimelogTracker.pdb
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\XapCacheFile.xml

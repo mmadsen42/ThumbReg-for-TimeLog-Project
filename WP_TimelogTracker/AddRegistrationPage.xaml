@@ -7,14 +7,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:c4fToolkit="clr-namespace:Coding4Fun.Phone.Controls.Toolkit;assembly=Coding4Fun.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True" TabIndex="3">
 
-    <!--LayoutRoot is the root grid where all page content is placed-->
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True"
+                                 IsVisible="False"
+                                 Text="Sending..." 
+                                 x:Name="Progress"
+                                 />
+    </shell:SystemTray.ProgressIndicator>
+
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,47 +30,34 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28" d:IsLocked="True">
-            <TextBlock x:Name="ApplicationTitle" Text="TIMELOG TRACKER" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="{Binding Name}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="0,0,0,0" d:IsLocked="True">
+            <TextBlock x:Name="ApplicationTitle" Text="Add duration and comment" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource PhoneAccentBrush}" />
+            <TextBlock x:Name="CustomerName" Text="{Binding CustomerName}" Margin="9,10,0,10" Style="{StaticResource PhoneTextNormalStyle}" FontSize="18" />
+            <TextBlock x:Name="ProjectName" Text="{Binding ProjectName}" Margin="9,10,0,10" Style="{StaticResource PhoneTextNormalStyle}" FontSize="18" />
+            <TextBlock x:Name="TaskName" Text="{Binding Name}" Margin="9,10,0,10" Style="{StaticResource PhoneTextNormalStyle}" FontSize="24" FontWeight="SemiBold" />            
+            
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,0,0" HorizontalAlignment="Left" Width="456" d:IsLocked="True">
-            <Slider Height="124" HorizontalAlignment="Center" Margin="0,207,0,0" Name="slider1" VerticalAlignment="Top" Width="466"  Minimum="5" Maximum="600" LargeChange="60" SmallChange="5" ManipulationCompleted="slider1_ManipulationCompleted" Tap="slider1_Tap" Orientation="Horizontal" Cursor="Hand" AllowDrop="False" Background="{StaticResource PhoneAccentBrush}" Foreground="{StaticResource PhoneForegroundBrush}"/>
-            <TextBox Height="200" HorizontalAlignment="Center" Margin="0,34,0,0" Name="textBox1" Text="00:00" VerticalAlignment="Top" Width="353" FontSize="133.333" FontFamily="Segoe WP SemiLight" TextAlignment="Center"  >
-            	<TextBox.Background>
-            		<SolidColorBrush Color="{StaticResource PhoneBackgroundColor}"/>
-            	</TextBox.Background>
-            	<TextBox.BorderBrush>
-            		<SolidColorBrush Color="{StaticResource PhoneBackgroundColor}"/>
-            	</TextBox.BorderBrush>
-            	<TextBox.Foreground>
-            		<SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
-            	</TextBox.Foreground>
-            </TextBox>
-            <TextBlock Height="89" HorizontalAlignment="Left" Margin="-8,12,0,0" Name="textBlock1"  VerticalAlignment="Top" Width="464" Text="{Binding Name}" FontSize="40" />
-            <Button Content="Submit" Margin="50,0,48,86" Click="Button_Click" Background="{StaticResource PhoneBackgroundBrush}" Visibility="Visible" Height="98" VerticalAlignment="Bottom" BorderBrush="{StaticResource PhoneBorderBrush}" Foreground="{StaticResource PhoneAccentBrush}"/>
-            <TextBlock x:Name="txtStatus" Height="58" Margin="67,0,56,188" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
-
-            <!--<toolkit:ListPicker
-                x:Name="ddHours"
-                Header="Hours"
-                SelectedIndex="1"
-                SelectionChanged="ddHours_SelectionChanged" Margin="9,337,341,252" />-->
-                </Grid>
+            <StackPanel x:Name="stack" Grid.Row="0" Margin="0,0,0,0" d:IsLocked="True">
+                <c4fToolkit:TimeSpanPicker FontSize="100" Name="inpDuration" MinHeight="100" ValueStringFormat="{}{0:hh}:{0:mm}" VerticalAlignment="Center" Max="12:00:00" Step="0:5" Height="100" HorizontalContentAlignment="Center" TabIndex="1" FontWeight="SemiBold" />
+                <Slider Height="90" HorizontalAlignment="Center" Margin="0" Name="slider1" VerticalAlignment="Top" Width="466"  Minimum="5" Maximum="720" LargeChange="60" SmallChange="5" ManipulationCompleted="slider1_ManipulationCompleted" Tap="slider1_Tap" Orientation="Horizontal" Cursor="Hand" AllowDrop="False" Background="{StaticResource PhoneAccentBrush}" Foreground="{StaticResource PhoneForegroundBrush}"/>
+                <TextBlock  Text="Comment" Margin="0,10,0,0" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource PhoneAccentBrush}" />
+                <TextBox InputScope="Text" Height="182" HorizontalAlignment="Left" Margin="0,0,0,0" Name="txtComment" Text="" VerticalAlignment="Top" Width="480" AcceptsReturn="False" TextWrapping="Wrap" TabIndex="2" />
+                <TextBlock x:Name="txtStatus" Height="58" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+            </StackPanel>
+        </Grid>
     </Grid>
  
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.save.rest.png" Text="Submit" Click="ApplicationBarIconButton_Click"/>
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+                <shell:ApplicationBarMenuItem Text="Submit" Click="ApplicationBarIconButton_Click"/>                
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+  </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

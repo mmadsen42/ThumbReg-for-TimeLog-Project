@@ -20,10 +20,16 @@ namespace WP_TimelogTracker
     {
         public Settings()
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
             App.IdentityViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(IdentityViewModel_PropertyChanged);
+        }
 
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {            
+            base.OnNavigatedTo(e);
+            txtPassword.Password = App.IdentityViewModel.Password;
+            txtUrl.Text = App.IdentityViewModel.HostAddr;
+            txtUserName.Text = App.IdentityViewModel.User;
         }
 
         void IdentityViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

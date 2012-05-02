@@ -35,7 +35,7 @@ namespace WP_TimelogTracker
         public void SendRegistrationToServer(Task task, TimeSpan duration, string comment)
         {
             DateTime _now = DateTime.Now;
-            DateTime _start = _now - duration;
+            DateTime _start = _now.Subtract(duration);
             DateTime _end = _now;
 
             var _workunit = new WorkUnit()
