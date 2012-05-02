@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using WP_TimelogTracker.ViewModels;
+using WP_TimelogTracker.tlpSecurity;
 
 
 namespace WP_TimelogTracker
@@ -44,8 +45,9 @@ namespace WP_TimelogTracker
             {
                 // Delay creation of the view model until necessary
                 if (identityViewModel == null)
+                {
                     identityViewModel = new IdentityViewModel();
-
+                }
                 return identityViewModel;
             }
         }
@@ -193,5 +195,7 @@ namespace WP_TimelogTracker
         }
 
         #endregion
+
+       
     }
 }

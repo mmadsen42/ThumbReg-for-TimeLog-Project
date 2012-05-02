@@ -14,6 +14,8 @@ using WP_TimelogTracker;
 using WP_TimelogTracker.tlp;
 using WP_TimelogTracker.tlpSecurity;
 using WP_TimelogTracker.Model;
+using System.IO.IsolatedStorage;
+using System.ComponentModel;
 
 
 namespace WP_TimelogTracker.ViewModels
@@ -21,27 +23,46 @@ namespace WP_TimelogTracker.ViewModels
     public class ProjectViewModel
     {       
 
-        private ObservableCollection<WPTask> _Tasks = new ObservableCollection<WPTask>();
+        ObservableCollection<WPTask> _Tasks = new ObservableCollection<WPTask>();  
         private ObservableCollection<WPTask> _RecentTasks = new ObservableCollection<WPTask>();
         private ObservableCollection<WPTask> _NewestTasks = new ObservableCollection<WPTask>();
         
+        private IsolatedStorageSettings _isoStore = IsolatedStorageSettings.ApplicationSettings;
         //private ObservableCollection<ProjectHeader> _projects = new ObservableCollection<ProjectHeader>();
         //private ObservableCollection<CustomerHeader> _customers = new ObservableCollection<CustomerHeader>();
         private static readonly ProjectViewModel _instance = new ProjectViewModel();
 
-        public ProjectViewModel() { }
+        public ProjectViewModel() {
+            if (_isoStore.Contains("_tasks")) {
+                _Tasks = _isoStore["_tasks"] as ObservableCollection<WPTask>;
+            }
+        }
         
+        public event PropertyChangedEventHandler PropertyChanged;
         private bool _isDataLoaded = false;
         public bool IsDataLoaded{
             get { return _isDataLoaded; }
             set { _isDataLoaded = value;}
         } 
+
+        private bool _LoadInProgress = false;
+        public bool LoadInProgress{
+            get { return _LoadInProgress; }
+            set { 
+                _LoadInProgress = value;
+                OnPropertyChanged("LoadInProgress");
+            }
+        } 
+
         public void LoadData() {
-            //LoadProjects();
-            LoadSampleData();
+            LoadProjects();
+            //LoadSampleData();
         }
 
         public ObservableCollection<WPTask> Tasks {
+            set { _Tasks = value;
+                _isoStore["_tasks"] = value;
+            }
             get { return _Tasks; }
         }
 
@@ -61,32 +82,36 @@ namespace WP_TimelogTracker.ViewModels
         //public ObservableCollection<CustomerHeader> Customers {
         //    get { return _customers; }
         //}
-        public void LoadProjects(){
-         
-			WP_TimelogTracker.tlpSecurity.SecurityServiceClient _secClient = new WP_TimelogTracker.tlpSecurity.SecurityServiceClient();
-            _secClient.GetTokenCompleted += new EventHandler<WP_TimelogTracker.tlpSecurity.GetTokenCompletedEventArgs>(_secClient_GetTokenCompleted);
-            _secClient.GetTokenAsync(new tlpSecurity.GetTokenRequest("mrm", "Kaffetime42"));
-        }
-
-         void _secClient_GetTokenCompleted(object sender, WP_TimelogTracker.tlpSecurity.GetTokenCompletedEventArgs e)
+        public void LoadProjects()
         {
-            tlpSecurity.SecurityToken _token =  e.Result.GetTokenResult.Return.FirstOrDefault();
-            tlp.SecurityToken _prjToken = new tlp.SecurityToken
-            {
-                Expires = _token.Expires,
-                Hash = _token.Hash,
-                Initials = _token.Initials
-               
-            };
-
-            App.IdentityViewModel.ProjectToken = _prjToken;
-            //var bind =  new System.ServiceModel.BasicHttpBinding();
-            //bind.MaxReceivedMessageSize = 10000000;
-            //var add = new System.ServiceModel.EndpointAddress("https://app.timelog.dk/local/WebServices/ProjectManagement/V1_1/ProjectManagementService.svc");
-            tlp.ProjectManagementServiceClient _prjClient = new tlp.ProjectManagementServiceClient();
-            _prjClient.GetTasksAllocatedToEmployeeCompleted += new EventHandler<tlp.GetTasksAllocatedToEmployeeCompletedEventArgs>(_prjClient_GetTasksAllocatedToEmployeeCompleted);
-            _prjClient.GetTasksAllocatedToEmployeeAsync(new tlp.GetTasksAllocatedToEmployeeRequest(App.IdentityViewModel.User, _prjToken));
+            LoadInProgress = true;
+            //var _add = new System.ServiceModel.EndpointAddress("https://app.timelog.dk/local/WebServices/Security/V1_0/SecurityServiceSecure.svc");
+            WP_TimelogTracker.tlpSecurity.SecurityServiceClient _secClient = new WP_TimelogTracker.tlpSecurity.SecurityServiceClient();
+            _secClient.GetTokenCompleted += new EventHandler<WP_TimelogTracker.tlpSecurity.GetTokenCompletedEventArgs>(_secClient_GetTokenCompleted);
+            _secClient.GetTokenAsync(new tlpSecurity.GetTokenRequest(App.IdentityViewModel.User, App.IdentityViewModel.Password));
         }
+
+           void _secClient_GetTokenCompleted(object sender, WP_TimelogTracker.tlpSecurity.GetTokenCompletedEventArgs e)
+           {
+               tlpSecurity.SecurityToken _token = e.Result.GetTokenResult.Return.FirstOrDefault();       
+            
+                tlp.SecurityToken _prjToken = new tlp.SecurityToken()
+                {
+                    Expires = _token.Expires,
+                    Hash = _token.Hash,
+                    Initials = _token.Initials
+               
+                };
+
+                App.IdentityViewModel.ProjectToken = _prjToken;
+                //var bind =  new System.ServiceModel.BasicHttpBinding();
+                //bind.MaxReceivedMessageSize = 10000000;
+                //var _add = new System.ServiceModel.EndpointAddress("https://app.timelog.dk/local/WebServices/ProjectManagement/V1_1/ProjectManagementService.svc");
+                tlp.ProjectManagementServiceClient _prjClient = new tlp.ProjectManagementServiceClient();
+                _prjClient.GetTasksAllocatedToEmployeeCompleted += new EventHandler<tlp.GetTasksAllocatedToEmployeeCompletedEventArgs>(_prjClient_GetTasksAllocatedToEmployeeCompleted);
+                _prjClient.GetTasksAllocatedToEmployeeAsync(new tlp.GetTasksAllocatedToEmployeeRequest(App.IdentityViewModel.User, _prjToken));
+            }    
+        
 
         void _prjClient_GetTasksAllocatedToEmployeeCompleted(object sender, WP_TimelogTracker.tlp.GetTasksAllocatedToEmployeeCompletedEventArgs e)
         {
@@ -94,11 +119,11 @@ namespace WP_TimelogTracker.ViewModels
             var _childTasks = e.Result.GetTasksAllocatedToEmployeeResult.Return.Where(t => !t.IsParent);
 
             //construct the all Task list
-            _Tasks.Clear();
+           
             foreach(var _T in  _childTasks.OrderBy(t=>t.Details.CustomerHeader.Name).ThenBy(t=>t.Details.ProjectHeader.Name).ThenBy(t=>t.SortOrder)){
                _Tasks.Add(FromAPItoDomain(_T));
-           }
-           
+            }
+            Tasks = _Tasks;
             _RecentTasks.Clear();
 
             
@@ -107,9 +132,9 @@ namespace WP_TimelogTracker.ViewModels
             foreach(var _T in  _childTasks.OrderByDescending(t=>t.StartDate).Take(10).OrderBy(t=>t.Details.CustomerHeader.Name).ThenBy(t=>t.Details.ProjectHeader.Name).ThenBy(t=>t.SortOrder)){
                _NewestTasks.Add(FromAPItoDomain(_T));
            }
- 
 
-            IsDataLoaded = true;
+
+            IsDataLoaded = _isoStore.Contains("_tasks"); 
             //foreach (var _prj in _Task.GroupBy(t => t.Details.ProjectHeader).Select(p => p.Key))
             //{
             //    _projects.Add( _prj);    
@@ -119,7 +144,7 @@ namespace WP_TimelogTracker.ViewModels
             //{
             //    _customers.Add( _cust);    
             //}
-            
+            LoadInProgress = false;
         }
 
        private WPTask FromAPItoDomain(Task t){
@@ -129,14 +154,27 @@ namespace WP_TimelogTracker.ViewModels
 
        internal void LoadSampleData()
        {
-           _Tasks.Add(new WPTask(1,"TimeLogTest", "1", "Test",1, "Log", "Time"));
-           _Tasks.Add(new WPTask(2,"Project 1 - task 1", "2", "Task A",2, "Proj A", "cust A"));
-           _Tasks.Add(new WPTask(33,"TimeLogTest", "1.2", "Task B",3, "Proj A","cust A"));
+           ObservableCollection<WPTask> _tasks = new ObservableCollection<WPTask>();
+           _tasks.Add(new WPTask(1,"TimeLogTest", "1", "Test",1, "Log", "Time"));
+           _tasks.Add(new WPTask(2,"Project 1 - task 1", "2", "Task A",2, "Proj A", "cust A"));
+           _tasks.Add(new WPTask(33,"TimeLogTest", "1.2", "Task B",3, "Proj A","cust A"));
+           Tasks = _tasks;
            _RecentTasks.Clear();            
            _NewestTasks.Clear();
            IsDataLoaded = true;
        }
+        
+        private void OnPropertyChanged(string name)
+          {
+              PropertyChangedEventHandler handler = PropertyChanged;
+              if (handler != null)
+              {
+                  handler(this, new PropertyChangedEventArgs(name));
+              }
+          }
+    
     }
+
 
      
 }

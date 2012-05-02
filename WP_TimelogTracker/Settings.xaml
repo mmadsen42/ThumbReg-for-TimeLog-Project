@@ -10,7 +10,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -29,22 +29,24 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel Height="Auto" HorizontalAlignment="Left" Margin="6,42,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="Auto">
-                <TextBlock Height="Auto" HorizontalAlignment="Left" Margin="15,0,0,0" Name="lblUrl" Text="TimeLog Url" VerticalAlignment="Top" />
+                <TextBlock Height="Auto" HorizontalAlignment="Left" Margin="15,0,0,0" Name="lblUrl" Text="TimeLog url" VerticalAlignment="Top" />
                 <TextBox Height="Auto" HorizontalAlignment="Left" Margin="0,0,0,0" Name="txtUrl" Text="https://app.timelog.dk/local" VerticalAlignment="Top" Width="450" />
+                <TextBlock Height="Auto" HorizontalAlignment="Left" Margin="15,15,0,0" Name="lblUserName" Text="User name" VerticalAlignment="Top" />
+                <TextBox Height="Auto" HorizontalAlignment="Left" Margin="0,0,0,0" Name="txtUserName" Text="initials" VerticalAlignment="Top" Width="450" />
+                <TextBlock Height="Auto" HorizontalAlignment="Left" Margin="15,15,0,0" Name="lblPassword" Text="Password" VerticalAlignment="Top" />
+                <PasswordBox Height="Auto" HorizontalAlignment="Left" Margin="0,0,0,0" Name="txtPassword" VerticalAlignment="Top" Width="450" />
+
             </StackPanel>
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="54,403,0,0" Name="lblConnected" Text="Not connected" VerticalAlignment="Top" Width="361" TextAlignment="Center" Background="#BFF80303"  IsEnabled="False" IsHitTestVisible="False" IsReadOnly="False" />
         </Grid>
     </Grid>
- 
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.save.rest.png" Text="Save" Click="Save_Click" />
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+                <shell:ApplicationBarMenuItem Text="Save" Click="Save_Click"/>                
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
-
+    </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

@@ -175,8 +175,10 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Images\appbar.add.rest.png" />
     <Content Include="Images\appbar.feature.settings.rest.png" />
     <Content Include="Images\appbar.refresh.rest.png" />
+    <Content Include="Images\appbar.save.rest.png" />
     <Content Include="Images\appbar.sync.rest.png" />
     <Content Include="ServiceReferences.ClientConfig" />
     <None Include="Service References\tlp\WP_TimelogTracker.tlp.CreateProjectFromTemplateResponse.datasource">

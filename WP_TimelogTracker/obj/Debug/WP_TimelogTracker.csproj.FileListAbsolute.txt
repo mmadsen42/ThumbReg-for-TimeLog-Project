@@ -20,3 +20,26 @@ C:\Users\mrm\Documents\Visual Studio 2010\Projects\WP_TimelogTracker\WP_TimelogT
 C:\Users\mrm\Documents\Visual Studio 2010\Projects\WP_TimelogTracker\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.dll
 C:\Users\mrm\Documents\Visual Studio 2010\Projects\WP_TimelogTracker\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.pdb
 C:\Users\mrm\Documents\Visual Studio 2010\Projects\WP_TimelogTracker\WP_TimelogTracker\obj\Debug\XapCacheFile.xml
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\ApplicationIcon.jpg
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Background.jpg
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\WP_TimelogTracker.dll
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\WP_TimelogTracker.pdb
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\AppManifest.xaml
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\WP_TimelogTracker.xap
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Microsoft.Phone.Controls.dll
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Microsoft.Phone.Controls.Maps.dll
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Microsoft.Phone.Controls.Toolkit.dll
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Microsoft.Phone.Controls.xml
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Microsoft.Phone.Controls.Maps.xml
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Microsoft.Phone.Controls.Toolkit.pdb
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Microsoft.Phone.Controls.Toolkit.xml
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\App.g.i.cs
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\AddRegistrationPage.g.i.cs
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\Login.g.i.cs
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\MainPage.g.i.cs
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.g.resources
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.dll
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.pdb
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\XapCacheFile.xml
+C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\Settings.g.i.cs

@@ -101,7 +101,14 @@
         
         
     </Grid>
- 
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True"
+                                 IsVisible="{Binding Loading}"
+                                 Text="Loading..." 
+                                 x:Name="Progress"
+                                 />
+    </shell:SystemTray.ProgressIndicator>
+
     <!--Sample code showing usage of ApplicationBar-->
     <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">

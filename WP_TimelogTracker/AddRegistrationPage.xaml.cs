@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using WP_TimelogTracker.Model;
 
 namespace WP_TimelogTracker
 {
@@ -85,7 +86,13 @@ namespace WP_TimelogTracker
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            App.RegistrationViewModel.SendRegistrationToServer((WP_TimelogTracker.tlp.Task)DataContext, new TimeSpan(_hours, _minutes, 0), "From WP7 tracker");
+            var _wpTask = ((WPTask)DataContext);
+            tlp.Task _tlpTask = new tlp.Task{
+                ID = _wpTask.ID,
+                No = _wpTask.No,
+                Name = _wpTask.Name
+            };
+            App.RegistrationViewModel.SendRegistrationToServer(_tlpTask, new TimeSpan(_hours, _minutes, 0), "From WP7 tracker");
         }
 
         //private void ddHours_SelectionChanged(object sender, SelectionChangedEventArgs e)
