@@ -20,7 +20,6 @@ C:\Users\mrm\Documents\Visual Studio 2010\Projects\WP_TimelogTracker\WP_TimelogT
 C:\Users\mrm\Documents\Visual Studio 2010\Projects\WP_TimelogTracker\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.dll
 C:\Users\mrm\Documents\Visual Studio 2010\Projects\WP_TimelogTracker\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.pdb
 C:\Users\mrm\Documents\Visual Studio 2010\Projects\WP_TimelogTracker\WP_TimelogTracker\obj\Debug\XapCacheFile.xml
-C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\ApplicationIcon.jpg
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Background.jpg
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\WP_TimelogTracker.dll
 C:\Users\mrm\ThumpReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\WP_TimelogTracker.pdb
