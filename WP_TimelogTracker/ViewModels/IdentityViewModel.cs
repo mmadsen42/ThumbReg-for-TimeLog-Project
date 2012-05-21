@@ -49,7 +49,7 @@ namespace WP_TimelogTracker.ViewModels
             }
         }
 
-        //private string _password = "Kaffetime42";
+        
         public string Password
         {
             get
