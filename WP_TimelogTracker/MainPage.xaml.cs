@@ -33,16 +33,22 @@ namespace WP_TimelogTracker
         {
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
-
-            if (!App.ViewModel.IsDataLoaded)
+            try
             {
-                if (!String.IsNullOrWhiteSpace(App.IdentityViewModel.User))
+                if (!App.ViewModel.IsDataLoaded)
                 {
-                    App.ViewModel.LoadData();
+                    if (!String.IsNullOrWhiteSpace(App.IdentityViewModel.User))
+                    {
+                        App.ViewModel.LoadData();
+                    }
+                    else
+                    {
+                        NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
+                    }
                 }
-                else { 
-                    NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
-                }
+            }
+            catch (Exception _ex) { 
+                NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
             }
         }
 
@@ -100,10 +106,19 @@ namespace WP_TimelogTracker
             NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
         }
 
+        private void About_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/About.xaml", UriKind.Relative));
+        }
+
         void ProjectViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) { 
             if(e.PropertyName.Equals("LoadInProgress")){               
                 Progress.IsVisible = App.ViewModel.LoadInProgress;
             }
+            if(e.PropertyName.Equals("ConnectionStatus")){
+                MessageBox.Show(App.ViewModel.ConnectionStatus);
+            }
+
         }
 
         private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)

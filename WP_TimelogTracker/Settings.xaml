@@ -28,7 +28,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <StackPanel Height="Auto" HorizontalAlignment="Left" Margin="6,42,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="Auto">
+            <StackPanel Height="369" HorizontalAlignment="Left" Margin="6,0,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="Auto">
                 <TextBlock Height="Auto" HorizontalAlignment="Left" Margin="15,0,0,0" Name="lblUrl" Text="TimeLog url" VerticalAlignment="Top" />
                 <TextBox Height="Auto" HorizontalAlignment="Left" Margin="0,0,0,0" Name="txtUrl" Text="https://app.timelog.dk/local" VerticalAlignment="Top" Width="450" />
                 <TextBlock Height="Auto" HorizontalAlignment="Left" Margin="15,15,0,0" Name="lblUserName" Text="User name" VerticalAlignment="Top" />
@@ -37,7 +37,7 @@
                 <PasswordBox Height="Auto" HorizontalAlignment="Left" Margin="0,0,0,0" Name="txtPassword" VerticalAlignment="Top" Width="450" />
 
             </StackPanel>
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="54,403,0,0" Name="lblConnected" Text="Not connected" VerticalAlignment="Top" Width="361" TextAlignment="Center" Background="#BFF80303"  IsEnabled="False" IsHitTestVisible="False" IsReadOnly="False" />
+            <TextBox Height="154" HorizontalAlignment="Left" Margin="12,375,0,0" Name="lblConnected" Text="" VerticalAlignment="Top" Width="438" TextAlignment="Center" Background="#BFF80303"  IsEnabled="False" IsHitTestVisible="False" IsReadOnly="False" BorderThickness="0" />
         </Grid>
     </Grid>
 

@@ -60,10 +60,27 @@ namespace WP_TimelogTracker.ViewModels
             }
         }
 
+        private string _ConnectionStatus = String.Empty;
+        public String ConnectionStatus
+        {
+            get { return _ConnectionStatus; }
+            set
+            {
+                _ConnectionStatus = value;
+                OnPropertyChanged("ConnectionStatus");
+            }
+        }
+
         public void LoadData()
         {
-            LoadProjects();
-            //LoadSampleData();
+            try
+            {
+                LoadProjects();
+            }
+            catch (SystemException _ex) {
+                _ConnectionStatus = _ex.Message;
+            }
+            
         }
 
         public ObservableCollection<WPTask> Tasks
@@ -126,8 +143,7 @@ namespace WP_TimelogTracker.ViewModels
             }
             catch (Exception ex)
             {
-                throw new Exception("Unable to login", ex);
-
+                ConnectionStatus = "Unable to connect: " + Environment.NewLine + ex.Message;
             }
         }
 
@@ -194,18 +210,6 @@ namespace WP_TimelogTracker.ViewModels
             return new WPTask(t.ID, t.FullName, t.WBS, t.Name, t.SortOrder, t.Details.ProjectHeader.Name, t.Details.CustomerHeader.Name);
         }
 
-
-        internal void LoadSampleData()
-        {
-            ObservableCollection<WPTask> _tasks = new ObservableCollection<WPTask>();
-            _tasks.Add(new WPTask(1, "TimeLogTest", "1", "Test", 1, "Log", "Time"));
-            _tasks.Add(new WPTask(2, "Project 1 - task 1", "2", "Task A", 2, "Proj A", "cust A"));
-            _tasks.Add(new WPTask(33, "TimeLogTest", "1.2", "Task B", 3, "Proj A", "cust A"));
-            _Tasks = _tasks;
-            _RecentTasks.Clear();
-            _NewestTasks.Clear();
-            IsDataLoaded = true;
-        }
 
         private void OnPropertyChanged(string name)
         {

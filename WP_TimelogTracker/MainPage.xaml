@@ -38,6 +38,7 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="Syncronize" Click="ReloadTasks_Click"/>
                 <shell:ApplicationBarMenuItem Text="Settings"  Click="Settings_Click"/>
+                <shell:ApplicationBarMenuItem Text="About"  Click="About_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
@@ -51,14 +52,14 @@
             <controls:Pivot.Foreground>
                 <SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
             </controls:Pivot.Foreground>
-            <controls:PivotItem Header="recent" x:Name="RecentList">
+            <controls:PivotItem Header="recent used" x:Name="RecentList" FontSize="16">
                 <Grid>
                     <ListBox ItemsSource="{Binding RecentTasks}" SelectionChanged="TaskListBox_SelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True" >
                     </ListBox>
                 </Grid>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="all" x:Name="AllList" >
+            <controls:PivotItem Header="all" x:Name="AllList" FontSize="16">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="75" />
@@ -72,7 +73,7 @@
                 </Grid>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="newest" x:Name="NewestList">
+            <controls:PivotItem Header="new allocations" x:Name="NewestList" FontSize="16">
                 <Grid>
                     <ListBox ItemsSource="{Binding NewestTasks}" SelectionChanged="TaskListBox_SelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True">
                     </ListBox>
