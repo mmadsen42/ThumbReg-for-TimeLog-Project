@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net;
+using System.Data.Linq;
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -8,30 +10,35 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Data.Linq.Mapping;
 
 namespace WP_TimelogTracker.Model
 {
-   
+    [Table]
     public class WPTask
     {
-        public WPTask(int id, string fullName, string wbs, string  name, int sortOrder, string projectName, string customerName) {
-            ID = id;
-            FullName = fullName;
-            Name = name;
-            WBS = wbs;
-            SortOrder = sortOrder;
-            ProjectName = projectName;
-            CustomerName = customerName;
-        }
 
+        
+
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public int DBID { get; set; }       
+        [Column]
+        public int ID { get; set; }       
+        [Column]
         public string FullName { get; set; }
+        [Column]
         public string WBS { get; set; }
+        [Column]
         public int SortOrder { get; set; }
+        [Column]
         public string ProjectName { get; set; }
+        [Column]
         public string CustomerName { get; set; }
+        [Column]
         public string No { get; set; }
+        [Column]
         public string Name { get; set; }
-        public int ID { get; set; }
+
 
     }
 }

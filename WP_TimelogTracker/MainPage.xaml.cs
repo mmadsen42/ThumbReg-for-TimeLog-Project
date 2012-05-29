@@ -38,8 +38,8 @@ namespace WP_TimelogTracker
                 if (!App.ViewModel.IsDataLoaded)
                 {
                     if (!String.IsNullOrWhiteSpace(App.IdentityViewModel.User))
-                    {
-                        App.ViewModel.LoadData();
+                    {                        
+                        App.ViewModel.LoadData(false);
                     }
                     else
                     {
@@ -47,7 +47,7 @@ namespace WP_TimelogTracker
                     }
                 }
             }
-            catch (Exception _ex) { 
+            catch (Exception ex) { 
                 NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
             }
         }
@@ -69,7 +69,7 @@ namespace WP_TimelogTracker
         {
             try
             {
-                App.ViewModel.LoadData();
+                App.ViewModel.LoadData(true);
             }
             catch (Exception ex)
             {

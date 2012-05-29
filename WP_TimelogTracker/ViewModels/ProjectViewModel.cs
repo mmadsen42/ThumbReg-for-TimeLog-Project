@@ -29,6 +29,7 @@ namespace WP_TimelogTracker.ViewModels
         private ObservableCollection<WPTask> _NewestTasks = new ObservableCollection<WPTask>();
 
 
+
         private IsolatedStorageSettings _isoStore = IsolatedStorageSettings.ApplicationSettings;
         //private ObservableCollection<ProjectHeader> _projects = new ObservableCollection<ProjectHeader>();
         //private ObservableCollection<CustomerHeader> _customers = new ObservableCollection<CustomerHeader>();
@@ -36,9 +37,7 @@ namespace WP_TimelogTracker.ViewModels
 
         public ProjectViewModel()
         {
-            //if (_isoStore.Contains("_tasks")) {
-            //    _Tasks = _isoStore["_tasks"] as ObservableCollection<WPTask>;
-            //}
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -71,16 +70,62 @@ namespace WP_TimelogTracker.ViewModels
             }
         }
 
-        public void LoadData()
+        public void LoadData(bool forceSync)
         {
+            using (Database db = new Database())
+            {
+                if (db.DatabaseExists() == false)
+                {
+                    // Create the database.
+                    db.CreateDatabase();
+                }
+                try
+                {
+                    var taskInDB = from WPTask t in db.tasksTable
+                                   select t;
+                    _allTasks = new ObservableCollection<WPTask>(taskInDB);
+                    _Tasks = _allTasks;
+                    _RecentTasks = _allTasks;
+                    if (_Tasks.Any())
+                    {
+                        IsDataLoaded = true;
+                    }
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+            }
+
+
+
             try
             {
-                LoadProjects();
+                if (forceSync)
+                {
+                    using (Database db = new Database())
+                    {
+                        if (db.DatabaseExists() == true)
+                        {
+                            // Create the database.
+                            db.DeleteDatabase();
+                        }
+                    }
+                }
+
+                if (forceSync || !_Tasks.Any())
+                {
+                    LoadProjects();
+                }
+
             }
-            catch (SystemException _ex) {
+            catch (SystemException _ex)
+            {
                 _ConnectionStatus = _ex.Message;
             }
-            
+
         }
 
         public ObservableCollection<WPTask> Tasks
@@ -161,14 +206,34 @@ namespace WP_TimelogTracker.ViewModels
                 Tasks.Add(_t);
             }
 
+            using (Database db = new Database())
+            {
+                if (db.DatabaseExists() == false)
+                {
+                    // Create the database.
+                    db.CreateDatabase();
+                }
+                db.tasksTable.InsertAllOnSubmit(_allTasks);
+                db.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
+            }
+
             _NewestTasks.Clear();
             //constuct the list of the 10 newest task
             foreach (var _T in _childTasks.OrderByDescending(t => t.StartDate).Take(10).OrderBy(t => t.Details.CustomerHeader.Name).ThenBy(t => t.Details.ProjectHeader.Name).ThenBy(t => t.SortOrder))
             {
                 _NewestTasks.Add(FromAPItoDomain(_T));
             }
-
-            IsDataLoaded = true;           
+            using (Database db = new Database())
+            {
+                if (db.DatabaseExists() == false)
+                {
+                    // Create the database.
+                    db.CreateDatabase();
+                }
+                db.newestTasksTable.InsertAllOnSubmit(_NewestTasks);
+                db.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
+            }
+            IsDataLoaded = true;
             LoadInProgress = false;
             LoadLastWeeksRegistrationsFromServer();
         }
@@ -203,11 +268,19 @@ namespace WP_TimelogTracker.ViewModels
             IsDataLoaded = true;
             LoadInProgress = false;
         }
-        
+
 
         private WPTask FromAPItoDomain(Task t)
         {
-            return new WPTask(t.ID, t.FullName, t.WBS, t.Name, t.SortOrder, t.Details.ProjectHeader.Name, t.Details.CustomerHeader.Name);
+            var _t = new WPTask();
+            _t.ID = t.ID;
+            _t.FullName = t.FullName;
+            _t.WBS = t.WBS;
+            _t.Name = t.Name;
+            _t.SortOrder = t.SortOrder;
+            _t.ProjectName = t.Details.ProjectHeader.Name;
+            _t.CustomerName = t.Details.CustomerHeader.Name;
+            return _t;
         }
 
 

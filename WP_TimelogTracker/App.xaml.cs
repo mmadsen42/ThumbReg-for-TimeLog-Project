@@ -126,7 +126,7 @@ namespace WP_TimelogTracker
             // Ensure that application state is restored appropriately
             if (!App.ViewModel.IsDataLoaded)
             {
-                App.ViewModel.LoadData();
+                App.ViewModel.LoadData(false);
             }
         }
 
