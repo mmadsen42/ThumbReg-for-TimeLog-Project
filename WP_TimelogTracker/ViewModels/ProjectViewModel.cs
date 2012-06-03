@@ -72,31 +72,7 @@ namespace WP_TimelogTracker.ViewModels
 
         public void LoadData(bool forceSync)
         {
-            using (Database db = new Database())
-            {
-                if (db.DatabaseExists() == false)
-                {
-                    // Create the database.
-                    db.CreateDatabase();
-                }
-                try
-                {
-                    var taskInDB = from WPTask t in db.tasksTable
-                                   select t;
-                    _allTasks = new ObservableCollection<WPTask>(taskInDB);
-                    _Tasks = _allTasks;
-                    _RecentTasks = _allTasks;
-                    if (_Tasks.Any())
-                    {
-                        IsDataLoaded = true;
-                    }
-                }
-                catch (Exception)
-                {
-
-
-                }
-            }
+            SelectTaskFromDatabase();
 
             try
             {
@@ -123,6 +99,35 @@ namespace WP_TimelogTracker.ViewModels
                 _ConnectionStatus = _ex.Message;
             }
 
+        }
+
+        private void SelectTaskFromDatabase()
+        {
+            using (Database db = new Database())
+            {
+                if (db.DatabaseExists() == false)
+                {
+                    // Create the database.
+                    db.CreateDatabase();
+                }
+                try
+                {
+                    var taskInDB = from WPTask t in db.tasksTable
+                                   select t;
+                    _allTasks = new ObservableCollection<WPTask>(taskInDB);
+                    _Tasks = new ObservableCollection<WPTask>(taskInDB);
+                    //_RecentTasks = _allTasks;
+                    if (_Tasks.Any())
+                    {
+                        IsDataLoaded = true;
+                    }
+                }
+                catch (Exception)
+                {
+
+
+                }
+            }
         }
 
         public ObservableCollection<WPTask> Tasks
@@ -296,19 +301,20 @@ namespace WP_TimelogTracker.ViewModels
 
             if (String.IsNullOrWhiteSpace(filter))
             {
-                _Tasks = _allTasks;
+                SelectTaskFromDatabase();
                 return;
             }
 
             _Tasks.Clear();
-            var _match = from t in _allTasks
-                         where t.FullName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) > 0
+            var _match = from WPTask t in _allTasks
+                         //where t.FullName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) > 0
+                         where t.FullName.Contains(filter)
                          select t;
-            _Tasks.Concat(_match);
-
-
-
-
+            
+            foreach (WPTask t in _match.ToList())
+            {                
+                _Tasks.Add(t);
+            }
         }
     }
 }

@@ -123,12 +123,34 @@ namespace WP_TimelogTracker
 
         private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
-            App.ViewModel.FilterTask(txtFilter.Text);
+            Dispatcher.BeginInvoke(() => {
+                App.ViewModel.FilterTask(txtFilter.Text);
+            });
         }
+
+
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
+            
+        }
 
+        private void OpenSearchBar_Click(object sender, EventArgs e)
+        {
+            if (txtFilter.Visibility == System.Windows.Visibility.Collapsed)
+            {
+                txtFilter.Visibility = System.Windows.Visibility.Visible;
+                txtFilter.Text = String.Empty;
+                txtFilter.Focus();
+            }
+            else {
+                txtFilter.Visibility = System.Windows.Visibility.Collapsed;
+                txtFilter.Text = String.Empty;
+                Dispatcher.BeginInvoke(() => {
+                    App.ViewModel.FilterTask(txtFilter.Text);
+                });
+            }
+            
         }
 
        

@@ -1,14 +1,15 @@
-﻿<xapCache source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\WP_TimelogTracker.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="30-05-2012 19:41:48">
+﻿<xapCache source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\WP_TimelogTracker.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="03-06-2012 23:29:59">
   <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="03-05-2012 01:45:05" />
   <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Images\ApplicationIcon.png" archivePath="Images\ApplicationIcon.png" lastWriteTime="08-05-2012 21:52:42" />
   <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Images\ApplicationIcon.png" archivePath="Images\ApplicationIcon.png" lastWriteTime="08-05-2012 21:52:42" />
-  <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.dll" archivePath="WP_TimelogTracker.dll" lastWriteTime="30-05-2012 19:41:40" />
+  <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.dll" archivePath="WP_TimelogTracker.dll" lastWriteTime="03-06-2012 23:29:51" />
   <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Coding4Fun.Phone.Controls.dll" archivePath="Coding4Fun.Phone.Controls.dll" lastWriteTime="11-04-2012 23:22:30" />
   <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Coding4Fun.Phone.Controls.Toolkit.dll" archivePath="Coding4Fun.Phone.Controls.Toolkit.dll" lastWriteTime="11-04-2012 23:22:30" />
   <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Coding4Fun.Phone.Site.Controls.dll" archivePath="Coding4Fun.Phone.Site.Controls.dll" lastWriteTime="11-04-2012 23:22:31" />
   <file source="c:\Program Files\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.dll" archivePath="Microsoft.Phone.Controls.dll" lastWriteTime="13-07-2011 09:40:24" />
   <file source="c:\Program Files\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.Maps.dll" archivePath="Microsoft.Phone.Controls.Maps.dll" lastWriteTime="13-07-2011 09:40:24" />
   <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\packages\SilverlightToolkitWP.4.2011.12.14\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll" archivePath="Microsoft.Phone.Controls.Toolkit.dll" lastWriteTime="11-04-2012 23:01:49" />
+  <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Images\appbar.feature.search.rest.png" archivePath="Images\appbar.feature.search.rest.png" lastWriteTime="30-06-2011 20:30:42" />
   <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Toolkit.Content\ApplicationBar.Cancel.png" archivePath="Toolkit.Content\ApplicationBar.Cancel.png" lastWriteTime="11-04-2012 23:01:51" />
   <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Toolkit.Content\ApplicationBar.Check.png" archivePath="Toolkit.Content\ApplicationBar.Check.png" lastWriteTime="11-04-2012 23:01:51" />
   <file source="C:\Users\mrm\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Toolkit.Content\ApplicationBar.Delete.png" archivePath="Toolkit.Content\ApplicationBar.Delete.png" lastWriteTime="11-04-2012 23:01:50" />
