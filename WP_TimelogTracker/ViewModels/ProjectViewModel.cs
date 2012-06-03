@@ -96,10 +96,7 @@ namespace WP_TimelogTracker.ViewModels
 
 
                 }
-
             }
-
-
 
             try
             {

@@ -7,6 +7,7 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Linq;
 using System.Windows.Shapes;
 using WP_TimelogTracker.tlp;
 using System.ComponentModel;
@@ -62,8 +63,18 @@ namespace WP_TimelogTracker.ViewModels
             }
         }
 
-        public WP_TimelogTracker.tlp.SecurityToken ProjectToken { get; set; }
-
+        WP_TimelogTracker.tlp.SecurityToken _projectToken;
+        public WP_TimelogTracker.tlp.SecurityToken ProjectToken {        
+            get 
+            {
+                return _projectToken;
+            }
+            set 
+            { 
+                _projectToken = value;
+                OnPropertyChanged("ProjectToken");            
+            }
+        }
         //public event PropertyChangedEventHandler PropertyChanged;
 
 
@@ -108,6 +119,39 @@ namespace WP_TimelogTracker.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-      
+
+
+        internal void Login()
+        {
+              WP_TimelogTracker.tlpSecurity.SecurityServiceClient _secClient = new WP_TimelogTracker.tlpSecurity.SecurityServiceClient();
+            _secClient.GetTokenCompleted += new EventHandler<WP_TimelogTracker.tlpSecurity.GetTokenCompletedEventArgs>(_secClient_GetTokenCompleted);
+            _secClient.GetTokenAsync(new tlpSecurity.GetTokenRequest(App.IdentityViewModel.User, App.IdentityViewModel.Password));
+        }
+
+
+        void _secClient_GetTokenCompleted(object sender, WP_TimelogTracker.tlpSecurity.GetTokenCompletedEventArgs e)
+        {
+            try
+            {
+                tlpSecurity.SecurityToken _token = e.Result.GetTokenResult.Return.FirstOrDefault();
+                if (_token == null)
+                {
+                    throw new Exception("Unable to connect to the service: " + e.Result.GetTokenResult.Messages[0].Message);
+                }
+                tlp.SecurityToken _prjToken = new tlp.SecurityToken()
+                {
+                    Expires = _token.Expires,
+                    Hash = _token.Hash,
+                    Initials = _token.Initials
+
+                };
+                App.IdentityViewModel.ProjectToken = _prjToken;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
     }
 }

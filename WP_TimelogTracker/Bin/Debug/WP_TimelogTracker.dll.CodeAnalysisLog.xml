@@ -28,7 +28,7 @@
  <Exceptions>
   <Exception Keyword="CA0060" Kind="Engine" TreatAsWarning="True">
    <Type>Microsoft.FxCop.Sdk.FxCopException</Type>
-   <ExceptionMessage>The indirectly-referenced assembly 'Microsoft.Phone.Data.Internal, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e' could not be found. This assembly is not required for analysis, however, analysis results could be incomplete. This assembly was referenced by: C:\Program Files\Reference Assemblies\Microsoft\Framework\Silverlight\v4.0\Profile\WindowsPhone71\system.data.linq.dll.</ExceptionMessage>
+   <ExceptionMessage>The indirectly-referenced assembly 'Microsoft.Phone.Data.Internal, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e' could not be found. This assembly is not required for analysis, however, analysis results could be incomplete. This assembly was referenced by: C:\Program Files\Reference Assemblies\Microsoft\Framework\Silverlight\v4.0\Profile\WindowsPhone71\System.Data.Linq.dll.</ExceptionMessage>
   </Exception>
  </Exceptions>
 </FxCopReport>

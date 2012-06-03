@@ -19,12 +19,22 @@ namespace WP_TimelogTracker
     {
         private int _hours;
         private int _minutes;
-
         
+        
+
         public AddRegistrationPage()
         {
             InitializeComponent();
-            App.RegistrationViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(RegistrationViewModel_PropertyChanged);    
+            App.RegistrationViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(RegistrationViewModel_PropertyChanged);
+            App.IdentityViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(IdentityViewModel_PropertyChanged);
+        }
+
+        void IdentityViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ProjectToken") 
+            {
+                SaveRegistationOnServer();
+            }
         }
 
         void RegistrationViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -88,14 +98,41 @@ namespace WP_TimelogTracker
         
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
+            if (App.IdentityViewModel.ProjectToken == null)
+            {
+                App.IdentityViewModel.Login();
+            }
+            else 
+            { 
+                SaveRegistationOnServer();
+            }
+            
+        }
+
+        private void SaveRegistationOnServer()
+        {
+            var _duration = new TimeSpan(_hours, _minutes, 0);
             Progress.IsVisible = true;
             var _wpTask = ((WPTask)DataContext);
-            tlp.Task _tlpTask = new tlp.Task{
+            tlp.Task _tlpTask = new tlp.Task
+            {
                 ID = _wpTask.ID,
                 No = _wpTask.No,
                 Name = _wpTask.Name
+
             };
-            App.RegistrationViewModel.SendRegistrationToServer(_tlpTask, new TimeSpan(_hours, _minutes, 0), txtComment.Text);
+            App.RegistrationViewModel.SendRegistrationToServer(_tlpTask, _duration, txtComment.Text);
+        }
+
+        private void inpDuration_ValueChanged(object sender, RoutedPropertyChangedEventArgs<TimeSpan> e)
+        {
+            TimeSpan? _duration = inpDuration.Value;
+            if (_duration.HasValue) {
+                _hours = _duration.Value.Hours;
+                _minutes = _duration.Value.Minutes;
+                slider1.Value = _hours * 60 + _minutes;
+            }
+            
         }
 
         //private void ddHours_SelectionChanged(object sender, SelectionChangedEventArgs e)

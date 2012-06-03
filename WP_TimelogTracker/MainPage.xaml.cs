@@ -47,7 +47,7 @@ namespace WP_TimelogTracker
                     }
                 }
             }
-            catch (Exception ex) { 
+            catch (Exception) { 
                 NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
             }
         }
