@@ -12,6 +12,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using WP_TimelogTracker.Model;
+
 using Microsoft.Phone.Shell;
 
 namespace WP_TimelogTracker
@@ -27,7 +28,7 @@ namespace WP_TimelogTracker
             App.ViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ProjectViewModel_PropertyChanged);
             
         }
-
+       
        
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -52,6 +53,18 @@ namespace WP_TimelogTracker
             }
         }
 
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            ClearSearchResult();
+        }
+
+        private void ClearSearchResult()
+        {
+            Dispatcher.BeginInvoke(() => {
+                App.ViewModel.FilterTask(String.Empty);
+            });
+        }
 
         private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -123,12 +136,9 @@ namespace WP_TimelogTracker
 
         private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Dispatcher.BeginInvoke(() => {
-                App.ViewModel.FilterTask(txtFilter.Text);
-            });
+          
+           
         }
-
-
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -142,15 +152,33 @@ namespace WP_TimelogTracker
                 txtFilter.Visibility = System.Windows.Visibility.Visible;
                 txtFilter.Text = String.Empty;
                 txtFilter.Focus();
+                //hide appbar to maximize the space for keyboard                
+                this.ApplicationBar.IsVisible = !this.ApplicationBar.IsVisible;
+                
             }
             else {
                 txtFilter.Visibility = System.Windows.Visibility.Collapsed;
                 txtFilter.Text = String.Empty;
-                Dispatcher.BeginInvoke(() => {
-                    App.ViewModel.FilterTask(txtFilter.Text);
-                });
+                               
+                //Clear the search result
+                ClearSearchResult();
             }
             
+        }
+
+        private void txtFilter_LostFocus(object sender, RoutedEventArgs e)
+        {
+            txtFilter.Visibility = System.Windows.Visibility.Collapsed;
+            this.ApplicationBar.IsVisible = !this.ApplicationBar.IsVisible;
+        }
+
+        
+
+        private void txtFilter_KeyUp(object sender, KeyEventArgs e)
+        {
+              Dispatcher.BeginInvoke(() => {
+                App.ViewModel.FilterTask(txtFilter.Text);
+            });
         }
 
        

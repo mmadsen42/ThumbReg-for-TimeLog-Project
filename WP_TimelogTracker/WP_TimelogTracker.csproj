@@ -85,6 +85,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\StringExtentions.cs" />
     <Compile Include="Model\WPTask.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

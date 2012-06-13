@@ -52,8 +52,8 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" TextChanged="txtFilter_TextChanged" Name="txtFilter" Visibility="Collapsed" Height="60" FontSize="18" />
-            <controls:Pivot Title="SELECT A TASK" Name="pivot1" Grid.Row="1" >
+        <TextBox Grid.Row="0" Name="txtFilter" Visibility="Collapsed" Height="60" FontSize="18" LostFocus="txtFilter_LostFocus" KeyUp="txtFilter_KeyUp"></TextBox>
+        <controls:Pivot Title="SELECT A TASK" Name="pivot1" Grid.Row="1" >
                 <controls:Pivot.Foreground>
                     <SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
                 </controls:Pivot.Foreground>

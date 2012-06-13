@@ -298,22 +298,25 @@ namespace WP_TimelogTracker.ViewModels
 
         internal void FilterTask(string filter)
         {
-
-            if (String.IsNullOrWhiteSpace(filter))
+            lock (this)
             {
-                SelectTaskFromDatabase();
-                return;
-            }
+                if (String.IsNullOrWhiteSpace(filter))
+                {
+                    SelectTaskFromDatabase();
+                    return;
+                }
 
-            _Tasks.Clear();
-            var _match = from WPTask t in _allTasks
-                         //where t.FullName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) > 0
-                         where t.FullName.Contains(filter)
-                         select t;
-            
-            foreach (WPTask t in _match.ToList())
-            {                
-                _Tasks.Add(t);
+                _Tasks.Clear();
+                var _match = from WPTask t in _allTasks
+                             where t.FullName.Contains(filter, StringComparison.OrdinalIgnoreCase)
+                             || t.CustomerName.Contains(filter, StringComparison.OrdinalIgnoreCase)
+
+                             select t;
+
+                foreach (WPTask t in _match.ToList())
+                {
+                    _Tasks.Add(t);
+                }
             }
         }
     }
