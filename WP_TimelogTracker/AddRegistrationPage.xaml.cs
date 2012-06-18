@@ -19,6 +19,7 @@ namespace WP_TimelogTracker
     {
         private int _hours = 0;
         private int _minutes = 30;
+        
         public AddRegistrationPage()
         {
             InitializeComponent();
@@ -29,6 +30,12 @@ namespace WP_TimelogTracker
                 _hours = App.RegistrationViewModel.TimeSinceLastRegistration.TimeSpan.Hours;
                 _minutes = App.RegistrationViewModel.TimeSinceLastRegistration.TimeSpan.Minutes;
             }
+            
+            if (_hours > 0 || _minutes > 0) { 
+                inpDuration.Value = new TimeSpan(_hours, _minutes, 0);
+            }
+            
+            
         }
 
         void IdentityViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
