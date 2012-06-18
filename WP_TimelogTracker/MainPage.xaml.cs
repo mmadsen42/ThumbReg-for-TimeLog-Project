@@ -23,6 +23,7 @@ namespace WP_TimelogTracker
         public MainPage()
         {
             DataContext = App.ViewModel;
+            
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             App.ViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ProjectViewModel_PropertyChanged);
@@ -131,7 +132,7 @@ namespace WP_TimelogTracker
             if(e.PropertyName.Equals("ConnectionStatus")){
                 MessageBox.Show(App.ViewModel.ConnectionStatus);
             }
-
+            
         }
 
         private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
@@ -170,15 +171,17 @@ namespace WP_TimelogTracker
         {
             txtFilter.Visibility = System.Windows.Visibility.Collapsed;
             this.ApplicationBar.IsVisible = !this.ApplicationBar.IsVisible;
+
         }
 
         
 
         private void txtFilter_KeyUp(object sender, KeyEventArgs e)
         {
-              Dispatcher.BeginInvoke(() => {
+            Dispatcher.BeginInvoke(() => {
                 App.ViewModel.FilterTask(txtFilter.Text);
             });
+            DataContext = App.ViewModel;
         }
 
        

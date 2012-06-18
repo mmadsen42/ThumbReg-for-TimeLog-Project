@@ -17,16 +17,18 @@ namespace WP_TimelogTracker
 {
     public partial class AddRegistrationPage : PhoneApplicationPage
     {
-        private int _hours;
-        private int _minutes;
-        
-        
-
+        private int _hours = 0;
+        private int _minutes = 30;
         public AddRegistrationPage()
         {
             InitializeComponent();
             App.RegistrationViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(RegistrationViewModel_PropertyChanged);
             App.IdentityViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(IdentityViewModel_PropertyChanged);
+
+            if (App.RegistrationViewModel.TimeSinceLastRegistration < new TimeSpan(18, 0, 0)) {
+                _hours = App.RegistrationViewModel.TimeSinceLastRegistration.TimeSpan.Hours;
+                _minutes = App.RegistrationViewModel.TimeSinceLastRegistration.TimeSpan.Minutes;
+            }
         }
 
         void IdentityViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -50,25 +52,15 @@ namespace WP_TimelogTracker
             string selectedIndex = "";
             if (NavigationContext.QueryString.TryGetValue("selectedItem", out selectedIndex))
             {
+                App.ViewModel.LoadData(false);
                 int index = int.Parse(selectedIndex);
                 DataContext = App.ViewModel.Tasks.FirstOrDefault(t => t.ID == index);
             }
 
+
             //fillHours();
         }
-
-        private void fillHours()
-        {
-            // List<Cities> source = new List<Cities>(); 
-            //source.Add(new Cities(){Name="Madrid",Country="ES",Language="Spanish"}); 
-            //source.Add(new Cities() { Name = "Las Vegas", Country = "US", Language = "English" }); 
-            //source.Add(new Cities() { Name = "London", Country = "UK", Language = "English" }); 
-            //source.Add(new Cities() { Name = "Mexico", Country = "MX", Language = "Spanish" }); 
-
-            //this.listPicker.ItemsSource = source;
-            
-        }
-
+        
         private void slider1_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
             int _totalminutes = (int)slider1.Value;
@@ -77,10 +69,7 @@ namespace WP_TimelogTracker
             inpDuration.Value = new TimeSpan(_hours, _minutes, 0);
         }
 
-        private void textBox1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            
-        }
+        
 
         private void slider1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -104,7 +93,7 @@ namespace WP_TimelogTracker
             }
             else 
             { 
-                SaveRegistationOnServer();
+                SaveRegistationOnServer();                
             }
             
         }

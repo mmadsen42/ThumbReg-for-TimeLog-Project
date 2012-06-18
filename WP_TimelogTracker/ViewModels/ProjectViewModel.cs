@@ -23,8 +23,8 @@ namespace WP_TimelogTracker.ViewModels
     public class ProjectViewModel
     {
 
-        ObservableCollection<WPTask> _Tasks = new ObservableCollection<WPTask>();
-        ObservableCollection<WPTask> _allTasks = new ObservableCollection<WPTask>();
+        private ObservableCollection<WPTask> _Tasks = new ObservableCollection<WPTask>();
+        private ObservableCollection<WPTask> _allTasks = new ObservableCollection<WPTask>();
         private ObservableCollection<WPTask> _RecentTasks = new ObservableCollection<WPTask>();
         private ObservableCollection<WPTask> _NewestTasks = new ObservableCollection<WPTask>();
 
@@ -35,10 +35,29 @@ namespace WP_TimelogTracker.ViewModels
         //private ObservableCollection<CustomerHeader> _customers = new ObservableCollection<CustomerHeader>();
         private static readonly ProjectViewModel _instance = new ProjectViewModel();
 
-        public ProjectViewModel()
+        public ObservableCollection<WPTask> Tasks
         {
-
+            get { return _Tasks; }
+            set
+            {
+                //if (_Tasks != value)
+                //{
+                    _Tasks = value;
+                    OnPropertyChanged("Tasks");
+                //}
+            }
         }
+
+        public ObservableCollection<WPTask> RecentTasks
+        {
+            get { return _RecentTasks; }
+        }
+
+        public ObservableCollection<WPTask> NewestTasks
+        {
+            get { return _NewestTasks; }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private bool _isDataLoaded = false;
@@ -69,6 +88,12 @@ namespace WP_TimelogTracker.ViewModels
                 OnPropertyChanged("ConnectionStatus");
             }
         }
+
+        public ProjectViewModel()
+        {
+
+        }
+
 
         public void LoadData(bool forceSync)
         {
@@ -114,8 +139,26 @@ namespace WP_TimelogTracker.ViewModels
                 {
                     var taskInDB = from WPTask t in db.tasksTable
                                    select t;
-                    _allTasks = new ObservableCollection<WPTask>(taskInDB);
-                    _Tasks = new ObservableCollection<WPTask>(taskInDB);
+                    _Tasks.Clear();
+                    foreach (WPTask t in taskInDB) {
+                        _Tasks.Add(t);
+                    }
+
+                    var _newestTaskInDB = from WPTask t in db.newestTasksTable
+                            select t;
+                    _NewestTasks.Clear();                    
+                    foreach (WPTask t in _newestTaskInDB) {
+                        _NewestTasks.Add(t);
+                    }
+
+                    var _recentTaskInDB = from WPTask t in db.recentUsedTasksTable
+                            select t;
+
+                    _RecentTasks.Clear();                    
+                    foreach (WPTask t in _recentTaskInDB) {
+                        _RecentTasks.Add(t);
+                    }
+
                     //_RecentTasks = _allTasks;
                     if (_Tasks.Any())
                     {
@@ -130,20 +173,7 @@ namespace WP_TimelogTracker.ViewModels
             }
         }
 
-        public ObservableCollection<WPTask> Tasks
-        {
-            get { return _Tasks; }
-        }
 
-        public ObservableCollection<WPTask> RecentTasks
-        {
-            get { return _RecentTasks; }
-        }
-
-        public ObservableCollection<WPTask> NewestTasks
-        {
-            get { return _NewestTasks; }
-        }
 
 
         //public ObservableCollection<ProjectHeader> Projects {
@@ -215,6 +245,10 @@ namespace WP_TimelogTracker.ViewModels
                     // Create the database.
                     db.CreateDatabase();
                 }
+                else {
+                    db.tasksTable.DeleteAllOnSubmit(db.tasksTable);
+                }
+
                 db.tasksTable.InsertAllOnSubmit(_allTasks);
                 db.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
             }
@@ -231,6 +265,9 @@ namespace WP_TimelogTracker.ViewModels
                 {
                     // Create the database.
                     db.CreateDatabase();
+                }
+                else {
+                    db.newestTasksTable.DeleteAllOnSubmit(db.newestTasksTable);
                 }
                 db.newestTasksTable.InsertAllOnSubmit(_NewestTasks);
                 db.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
@@ -267,6 +304,20 @@ namespace WP_TimelogTracker.ViewModels
                 var _task = _allTasks.FirstOrDefault(t => t.ID == taskID);
                 if (_task != null) _RecentTasks.Add(_task);
             }
+            using (Database db = new Database())
+            {
+                if (db.DatabaseExists() == false)
+                {
+                    // Create the database.
+                    db.CreateDatabase();
+                }
+                else {
+                    db.recentUsedTasksTable.DeleteAllOnSubmit(db.recentUsedTasksTable);
+                }
+                db.recentUsedTasksTable.InsertAllOnSubmit(_RecentTasks);
+                db.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
+            }
+            
             IsDataLoaded = true;
             LoadInProgress = false;
         }
@@ -306,7 +357,8 @@ namespace WP_TimelogTracker.ViewModels
                     return;
                 }
 
-                _Tasks.Clear();
+                Tasks.Clear();
+                
                 var _match = from WPTask t in _allTasks
                              where t.FullName.Contains(filter, StringComparison.OrdinalIgnoreCase)
                              || t.CustomerName.Contains(filter, StringComparison.OrdinalIgnoreCase)
@@ -315,8 +367,10 @@ namespace WP_TimelogTracker.ViewModels
 
                 foreach (WPTask t in _match.ToList())
                 {
-                    _Tasks.Add(t);
+                    Tasks.Add(t);
                 }
+                
+                //Tasks = _Tasks;
             }
         }
     }

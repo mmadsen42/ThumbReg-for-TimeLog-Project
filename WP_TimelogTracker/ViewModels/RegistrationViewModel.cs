@@ -12,15 +12,35 @@ using System.Windows.Shapes;
 using WP_TimelogTracker.tlp;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.IO.IsolatedStorage;
 
 namespace WP_TimelogTracker
 {
 	public class RegistrationViewModel : INotifyPropertyChanged
 	{
-		public RegistrationViewModel()
+		private IsolatedStorageSettings _isoStore = IsolatedStorageSettings.ApplicationSettings;
+        public RegistrationViewModel()
 		{
 		   
 		}
+
+        private DateTime TimeOfLastRegistration 
+        {
+            get 
+            {
+                return _isoStore.Contains("_TimeOfLastRegistration") ? (DateTime)_isoStore["_TimeOfLastRegistration"]  : DateTime.Now;
+            }
+            set 
+            {
+                _isoStore["_TimeOfLastRegistration"] = value;
+            }
+        }
+
+        public Duration TimeSinceLastRegistration {
+            get {
+                return DateTime.Now.Subtract(TimeOfLastRegistration).Duration();
+            }
+        }
 
 		private string _status;
 		public string Status{
@@ -59,7 +79,22 @@ namespace WP_TimelogTracker
 
 		void _prjClient_InsertWorkCompleted(object sender, InsertWorkCompletedEventArgs e)
 		{
-			Status = e.Result.InsertWorkResult.Messages[0].Message;
+            if (e.Result.InsertWorkResult.ErrorCode == 0)
+            {
+                if (e.Result.InsertWorkResult.Return[0].Status == ExecutionStatus.Success)
+                {
+                    Status = "Done!";
+                    TimeOfLastRegistration = DateTime.Now;
+                }
+                else { 
+                    Status = e.Result.InsertWorkResult.Return[0].Message;
+                }
+                
+            }
+            else { 
+                Status = e.Result.InsertWorkResult.Messages[0].Message;
+            }
+            
 		}
 
 		 // Create the OnPropertyChanged method to raise the event
