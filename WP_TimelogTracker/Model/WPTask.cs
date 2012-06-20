@@ -17,9 +17,6 @@ namespace WP_TimelogTracker.Model
     [Table]
     public class WPTask
     {
-
-        
-
         [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public int DBID { get; set; }       
         [Column]
@@ -38,6 +35,13 @@ namespace WP_TimelogTracker.Model
         public string No { get; set; }
         [Column]
         public string Name { get; set; }
+        [Column]
+        public DateTime StartDate { get; set; }
+        [Column]
+        public Boolean RecentUsed { get; set; }
+        [Column]
+        public string RecentComment { get; set; }
+
 
 
     }

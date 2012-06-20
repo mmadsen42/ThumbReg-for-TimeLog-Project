@@ -20,7 +20,6 @@ namespace WP_TimelogTracker.Model
         }
         
         public Table<WPTask> tasksTable;
-        public Table<WPTask> newestTasksTable;
-        public Table<WPTask> recentUsedTasksTable;
+
     }      
 }

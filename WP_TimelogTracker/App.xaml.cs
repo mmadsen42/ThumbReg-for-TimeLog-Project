@@ -14,6 +14,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using WP_TimelogTracker.ViewModels;
 using WP_TimelogTracker.tlpSecurity;
+using WP_TimelogTracker.Model;
 
 
 namespace WP_TimelogTracker
@@ -157,6 +158,16 @@ namespace WP_TimelogTracker
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
             MessageBox.Show(e.ExceptionObject.Message);
+            
+             using (Database db = new Database())
+            {
+                if (db.DatabaseExists() == true)
+                {
+                    // Create the database.
+                    db.DeleteDatabase();
+                }
+            }
+            
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // An unhandled exception has occurred; break into the debugger

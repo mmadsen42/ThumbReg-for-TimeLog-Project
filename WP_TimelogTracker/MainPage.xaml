@@ -67,7 +67,7 @@
 
                 <controls:PivotItem Header="all" x:Name="AllList" FontSize="16">
                     <Grid>
-                    <ListBox ItemsSource="{Binding Tasks}" DataContext="{Binding}"  SelectionChanged="TaskListBox_SelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True">
+                    <ListBox ItemsSource="{Binding Tasks}"  SelectionChanged="TaskListBox_SelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True">
                         </ListBox>
                     </Grid>
                 </controls:PivotItem>

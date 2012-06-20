@@ -44,7 +44,7 @@
                 <c4fToolkit:TimeSpanPicker FontSize="100" Name="inpDuration" MinHeight="100" ValueStringFormat="{}{0:hh}:{0:mm}" VerticalAlignment="Center" Max="12:00:00" Step="0:5" Height="100" HorizontalContentAlignment="Center" TabIndex="1" FontWeight="SemiBold" ValueChanged="inpDuration_ValueChanged" />
                 <Slider Height="90" HorizontalAlignment="Center" Margin="0" Name="slider1" VerticalAlignment="Top" Width="466"  Minimum="5" Maximum="720" LargeChange="60" SmallChange="5" ManipulationCompleted="slider1_ManipulationCompleted" Tap="slider1_Tap" Orientation="Horizontal" Cursor="Hand" AllowDrop="False" Background="{StaticResource PhoneAccentBrush}" Foreground="{StaticResource PhoneForegroundBrush}"/>
                 <TextBlock  Text="Comment" Margin="0,10,0,0" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource PhoneAccentBrush}" />
-                <TextBox InputScope="Text" Height="182" HorizontalAlignment="Left" Margin="0,0,0,0" Name="txtComment" Text="" VerticalAlignment="Top" Width="480" AcceptsReturn="False" TextWrapping="Wrap" TabIndex="2" />
+                <TextBox InputScope="Text" Height="182" HorizontalAlignment="Left" Margin="0,0,0,0" Name="txtComment" Text="{Binding RecentComment}" VerticalAlignment="Top" Width="480" AcceptsReturn="False" TextWrapping="Wrap" TabIndex="2" />
                 <TextBlock x:Name="txtStatus" Height="58" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
             </StackPanel>
         </Grid>

@@ -139,28 +139,27 @@ namespace WP_TimelogTracker.ViewModels
                 {
                     var taskInDB = from WPTask t in db.tasksTable
                                    select t;
-                    _Tasks.Clear();
+                    Tasks.Clear();
                     foreach (WPTask t in taskInDB) {
-                        _Tasks.Add(t);
+                        Tasks.Add(t);
                     }
 
-                    var _newestTaskInDB = from WPTask t in db.newestTasksTable
-                            select t;
-                    _NewestTasks.Clear();                    
-                    foreach (WPTask t in _newestTaskInDB) {
-                        _NewestTasks.Add(t);
+                    foreach (var _T in _Tasks.OrderByDescending(t => t.StartDate).Take(10).OrderBy(t => t.CustomerName).ThenBy(t => t.ProjectName).ThenBy(t => t.SortOrder))
+                    {
+                        _NewestTasks.Add(_T);
                     }
+                    
 
-                    var _recentTaskInDB = from WPTask t in db.recentUsedTasksTable
+                    var _recentTaskInDB = from WPTask t in db.tasksTable where t.RecentUsed
                             select t;
 
-                    _RecentTasks.Clear();                    
+                    RecentTasks.Clear();                    
                     foreach (WPTask t in _recentTaskInDB) {
                         _RecentTasks.Add(t);
                     }
 
                     //_RecentTasks = _allTasks;
-                    if (_Tasks.Any())
+                    if (Tasks.Any())
                     {
                         IsDataLoaded = true;
                     }
@@ -254,24 +253,12 @@ namespace WP_TimelogTracker.ViewModels
             }
 
             _NewestTasks.Clear();
-            //constuct the list of the 10 newest task
-            foreach (var _T in _childTasks.OrderByDescending(t => t.StartDate).Take(10).OrderBy(t => t.Details.CustomerHeader.Name).ThenBy(t => t.Details.ProjectHeader.Name).ThenBy(t => t.SortOrder))
+            //constuct the list of the 7 newest task
+            foreach (var _T in _childTasks.OrderByDescending(t => t.StartDate).Take(7).OrderBy(t => t.Details.CustomerHeader.Name).ThenBy(t => t.Details.ProjectHeader.Name).ThenBy(t => t.SortOrder))
             {
                 _NewestTasks.Add(FromAPItoDomain(_T));
             }
-            using (Database db = new Database())
-            {
-                if (db.DatabaseExists() == false)
-                {
-                    // Create the database.
-                    db.CreateDatabase();
-                }
-                else {
-                    db.newestTasksTable.DeleteAllOnSubmit(db.newestTasksTable);
-                }
-                db.newestTasksTable.InsertAllOnSubmit(_NewestTasks);
-                db.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
-            }
+            
             IsDataLoaded = true;
             LoadInProgress = false;
             LoadLastWeeksRegistrationsFromServer();
@@ -293,9 +280,14 @@ namespace WP_TimelogTracker.ViewModels
         void _prjClient_GetEmployeeWorkCompleted(object sender, GetEmployeeWorkCompletedEventArgs e)
         {
             List<int> _recentUsedTaskID = new List<int>();
-            foreach (WorkUnit u in e.Result.GetEmployeeWorkResult.Return.OrderByDescending(w => w.StartDateTime))
+            Dictionary<int,string> _recentUsedComments = new Dictionary<int,string>();
+            foreach (WorkUnit u in e.Result.GetEmployeeWorkResult.Return.OrderBy(w => w.StartDateTime))
             {
                 _recentUsedTaskID.Add(u.TaskID);
+                if (!String.IsNullOrWhiteSpace(u.Description))
+                {
+                    _recentUsedComments[u.TaskID] = u.Description;
+                }                
             }
 
             _RecentTasks.Clear();
@@ -311,10 +303,19 @@ namespace WP_TimelogTracker.ViewModels
                     // Create the database.
                     db.CreateDatabase();
                 }
-                else {
-                    db.recentUsedTasksTable.DeleteAllOnSubmit(db.recentUsedTasksTable);
+
+                foreach (var _usedTask in _RecentTasks) { 
+                    var taskInDB = from WPTask t in db.tasksTable where t.ID == _usedTask.ID 
+                                   select t;
+
+                    foreach (var t in taskInDB) {
+                        t.RecentUsed = true;
+                        string _comment;
+                        if(_recentUsedComments.TryGetValue(t.ID, out _comment)){
+                            t.RecentComment = _comment;
+                        }                         
+                    }
                 }
-                db.recentUsedTasksTable.InsertAllOnSubmit(_RecentTasks);
                 db.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
             }
             
@@ -333,6 +334,7 @@ namespace WP_TimelogTracker.ViewModels
             _t.SortOrder = t.SortOrder;
             _t.ProjectName = t.Details.ProjectHeader.Name;
             _t.CustomerName = t.Details.CustomerHeader.Name;
+            _t.StartDate = t.StartDate;
             return _t;
         }
 

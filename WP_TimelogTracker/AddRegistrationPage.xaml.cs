@@ -59,7 +59,9 @@ namespace WP_TimelogTracker
             string selectedIndex = "";
             if (NavigationContext.QueryString.TryGetValue("selectedItem", out selectedIndex))
             {
-                App.ViewModel.LoadData(false);
+                if (!App.ViewModel.IsDataLoaded) { 
+                    App.ViewModel.LoadData(false);
+                }                
                 int index = int.Parse(selectedIndex);
                 DataContext = App.ViewModel.Tasks.FirstOrDefault(t => t.ID == index);
             }
@@ -94,6 +96,7 @@ namespace WP_TimelogTracker
         
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
+            
             if (App.IdentityViewModel.ProjectToken == null)
             {
                 App.IdentityViewModel.Login();
@@ -115,6 +118,8 @@ namespace WP_TimelogTracker
                 ID = _wpTask.ID,
                 No = _wpTask.No,
                 Name = _wpTask.Name
+
+                
 
             };
             App.RegistrationViewModel.SendRegistrationToServer(_tlpTask, _duration, txtComment.Text);
