@@ -1,28 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
+﻿using System.Windows;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using WP_TimelogTracker.ViewModels;
-using WP_TimelogTracker.tlpSecurity;
-using WP_TimelogTracker.Model;
+using ThumbReg.Model;
+using ThumbReg.ViewModels;
 
 
-namespace WP_TimelogTracker
+namespace ThumbReg
 {
-    public partial class App : Application
+    public partial class App
     {
-        private static ProjectViewModel viewModel = null;
-        private static bool _isInited = false;
+        private static ProjectViewModel _viewModel;
+        private static bool _isInited;
         /// <summary>
         /// A static ViewModel used by the views to bind against.
         /// </summary>
@@ -32,37 +21,27 @@ namespace WP_TimelogTracker
             get
             {
                 // Delay creation of the view model until necessary
-                if (viewModel == null)
-                    viewModel = new ProjectViewModel();
-
-                return viewModel;
+                return _viewModel ?? (_viewModel = new ProjectViewModel());
             }
         }
 
-        private static IdentityViewModel identityViewModel = null;
+        private static IdentityViewModel _identityViewModel;
         public static IdentityViewModel IdentityViewModel
         {
             get
             {
                 // Delay creation of the view model until necessary
-                if (identityViewModel == null)
-                {
-                    identityViewModel = new IdentityViewModel();
-                }
-                return identityViewModel;
+                return _identityViewModel ?? (_identityViewModel = new IdentityViewModel());
             }
         }
       
-        private static RegistrationViewModel registrationViewModel = null;
+        private static RegistrationViewModel _registrationViewModel;
         public static RegistrationViewModel RegistrationViewModel
         {
             get
             {
                 // Delay creation of the view model until necessary
-                if (registrationViewModel == null)
-                    registrationViewModel = new RegistrationViewModel();
-
-                return registrationViewModel;
+                return _registrationViewModel ?? (_registrationViewModel = new RegistrationViewModel());
             }
         }
         
@@ -94,20 +73,20 @@ namespace WP_TimelogTracker
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // Display the current frame rate counters
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+                Current.Host.Settings.EnableFrameRateCounter = true;
 
-                // Show the areas of the app that are being redrawn in each frame.
-                //Application.Current.Host.Settings.EnableRedrawRegions = true;
+                //// Show the areas of the app that are being redrawn in each frame.
+                ////Application.Current.Host.Settings.EnableRedrawRegions = true;
 
-                // Enable non-production analysis visualization mode, 
-                // which shows areas of a page that are handed off to GPU with a colored overlay.
-                //Application.Current.Host.Settings.EnableCacheVisualization = true;
+                //// Enable non-production analysis visualization mode, 
+                //// which shows areas of a page that are handed off to GPU with a colored overlay.
+                ////Application.Current.Host.Settings.EnableCacheVisualization = true;
 
-                // Disable the application idle detection by setting the UserIdleDetectionMode property of the
-                // application's PhoneApplicationService object to Disabled.
-                // Caution:- Use this under debug mode only. Application that disable user idle detection will continue to run
-                // and consume battery power when the user is not using the phone.
-                PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
+                //// Disable the application idle detection by setting the UserIdleDetectionMode property of the
+                //// application's PhoneApplicationService object to Disabled.
+                //// Caution:- Use this under debug mode only. Application that disable user idle detection will continue to run
+                //// and consume battery power when the user is not using the phone.
+                //PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
         }
 
@@ -125,9 +104,9 @@ namespace WP_TimelogTracker
             
             
             // Ensure that application state is restored appropriately
-            if (!App.ViewModel.IsDataLoaded)
+            if (!ViewModel.IsDataLoaded)
             {
-                App.ViewModel.LoadData(false);
+                ViewModel.LoadData(false);
             }
         }
 
@@ -161,7 +140,7 @@ namespace WP_TimelogTracker
             
              using (Database db = new Database())
             {
-                if (db.DatabaseExists() == true)
+                if (db.DatabaseExists())
                 {
                     // Create the database.
                     db.DeleteDatabase();
@@ -178,7 +157,7 @@ namespace WP_TimelogTracker
         #region Phone application initialization
 
         // Avoid double-initialization
-        private bool phoneApplicationInitialized = false;
+        private bool phoneApplicationInitialized;
 
         // Do not add any additional code to this method
         private void InitializePhoneApplication()

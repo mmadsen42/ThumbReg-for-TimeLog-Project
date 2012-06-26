@@ -1,27 +1,16 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Linq;
-using System.Windows.Shapes;
-using WP_TimelogTracker.tlp;
+using ThumbReg.tlpSecurity;
 using System.ComponentModel;
-using System.Windows.Navigation;
-using WP_TimelogTracker.tlpSecurity;
-using System.Collections.ObjectModel;
 using System.IO.IsolatedStorage;
+using SecurityToken = ThumbReg.tlp.SecurityToken;
 
-namespace WP_TimelogTracker.ViewModels
+namespace ThumbReg.ViewModels
 {
          
     public class IdentityViewModel
     {
-        private IsolatedStorageSettings _isoStore = IsolatedStorageSettings.ApplicationSettings;
+        private readonly IsolatedStorageSettings _isoStore = IsolatedStorageSettings.ApplicationSettings;
 
         tlpSecurity.SecurityToken _token;
         public tlpSecurity.SecurityToken Token 
@@ -30,14 +19,13 @@ namespace WP_TimelogTracker.ViewModels
             {
                 return _token;
             }
-            set 
+            private set 
             { 
                 _token = value;
                 OnPropertyChanged("Token");            
             }
         }
     
-        //private string _user =  
         public string User 
         {
             get 
@@ -63,8 +51,8 @@ namespace WP_TimelogTracker.ViewModels
             }
         }
 
-        WP_TimelogTracker.tlp.SecurityToken _projectToken;
-        public WP_TimelogTracker.tlp.SecurityToken ProjectToken {        
+        SecurityToken _projectToken;
+        public SecurityToken ProjectToken {        
             get 
             {
                 return _projectToken;
@@ -75,11 +63,7 @@ namespace WP_TimelogTracker.ViewModels
                 OnPropertyChanged("ProjectToken");            
             }
         }
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-
-
-
+      
         public string HostAddr {
             get {
                 return _isoStore.Contains("_hostAddr") ? _isoStore["_hostAddr"] as string : "";    
@@ -90,16 +74,13 @@ namespace WP_TimelogTracker.ViewModels
         }
 
         public void CheckConnection()
-        {
-            //string _addSecurity = "https://app.timelog.dk/local/WebServices/Security/V1_0/SecurityServiceSecure.svc";
-            //var _add = new System.ServiceModel.EndpointAddress();
-            var _client = new SecurityServiceClient();
-            _client.GetTokenCompleted += new EventHandler<GetTokenCompletedEventArgs>(_client_GetTokenCompleted);
-            _client.GetTokenAsync(new GetTokenRequest(App.IdentityViewModel.User, App.IdentityViewModel.Password));
-            
+        {            
+            var client = new SecurityServiceClient();
+            client.GetTokenCompleted += ClientGetTokenCompleted;
+            client.GetTokenAsync(new GetTokenRequest(App.IdentityViewModel.User, App.IdentityViewModel.Password));
         }
 
-        void _client_GetTokenCompleted(object sender, GetTokenCompletedEventArgs e)
+        void ClientGetTokenCompleted(object sender, GetTokenCompletedEventArgs e)
         {
             if (e.Result.GetTokenResult.ErrorCode == 0) 
             {
@@ -118,40 +99,31 @@ namespace WP_TimelogTracker.ViewModels
           }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-
-
+        
         internal void Login()
         {
-              WP_TimelogTracker.tlpSecurity.SecurityServiceClient _secClient = new WP_TimelogTracker.tlpSecurity.SecurityServiceClient();
-            _secClient.GetTokenCompleted += new EventHandler<WP_TimelogTracker.tlpSecurity.GetTokenCompletedEventArgs>(_secClient_GetTokenCompleted);
-            _secClient.GetTokenAsync(new tlpSecurity.GetTokenRequest(App.IdentityViewModel.User, App.IdentityViewModel.Password));
+            var secClient = new SecurityServiceClient();
+            secClient.GetTokenCompleted += _secClient_GetTokenCompleted;
+            secClient.GetTokenAsync(new GetTokenRequest(App.IdentityViewModel.User, App.IdentityViewModel.Password));
         }
 
 
-        void _secClient_GetTokenCompleted(object sender, WP_TimelogTracker.tlpSecurity.GetTokenCompletedEventArgs e)
+        void _secClient_GetTokenCompleted(object sender, GetTokenCompletedEventArgs e)
         {
-            try
+            tlpSecurity.SecurityToken token = e.Result.GetTokenResult.Return.FirstOrDefault();
+            if (token == null)
             {
-                tlpSecurity.SecurityToken _token = e.Result.GetTokenResult.Return.FirstOrDefault();
-                if (_token == null)
-                {
-                    throw new Exception("Unable to connect to the service: " + e.Result.GetTokenResult.Messages[0].Message);
-                }
-                tlp.SecurityToken _prjToken = new tlp.SecurityToken()
-                {
-                    Expires = _token.Expires,
-                    Hash = _token.Hash,
-                    Initials = _token.Initials
-
-                };
-                App.IdentityViewModel.ProjectToken = _prjToken;
+                throw new Exception("Unable to connect to the service: " + e.Result.GetTokenResult.Messages[0].Message);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            var prjToken = new SecurityToken
+                               {
+                                   Expires = token.Expires,
+                                   Hash = token.Hash,
+                                   Initials = token.Initials
 
+                               };
+
+            App.IdentityViewModel.ProjectToken = prjToken;
         }
     }
 }

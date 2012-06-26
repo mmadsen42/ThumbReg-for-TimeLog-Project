@@ -1,0 +1,21 @@
+<Modules>
+  <Module PersistentId="B4332A83-C862-4F1A-BAFD-C67D52A4B172" ModuleId="WP_TimelogTracker" />
+  <Module PersistentId="System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" ModuleId="System.Windows" />
+  <Module PersistentId="Microsoft.Phone, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" ModuleId="Microsoft.Phone" />
+  <Module PersistentId="Coding4Fun.Phone.Controls.Toolkit, Version=1.5.5.0, Culture=neutral, PublicKeyToken=null" ModuleId="Coding4Fun.Phone.Controls.Toolkit" />
+  <Module PersistentId="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604" ModuleId="Microsoft.Phone.Controls.Toolkit" />
+  <Module PersistentId="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" ModuleId="Microsoft.Phone.Controls" />
+  <Module PersistentId="Coding4Fun.Phone.Controls, Version=1.5.5.0, Culture=neutral, PublicKeyToken=null" ModuleId="Coding4Fun.Phone.Controls" />
+  <Module PersistentId="Coding4Fun.Phone.Site.Controls, Version=1.5.5.0, Culture=neutral, PublicKeyToken=null" ModuleId="Coding4Fun.Phone.Site.Controls" />
+  <Module PersistentId="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" ModuleId="Microsoft.Phone.Controls.Maps" />
+  <Module PersistentId="Microsoft.Phone.Interop, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" ModuleId="Microsoft.Phone.Interop" />
+  <Module PersistentId="System.Data.Linq, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" ModuleId="System.Data.Linq" />
+  <Module PersistentId="System.Runtime.Serialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" ModuleId="System.Runtime.Serialization" />
+  <Module PersistentId="System.ServiceModel, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.ServiceModel" />
+  <Module PersistentId="System, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" ModuleId="System" />
+  <Module PersistentId="System.Core, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" ModuleId="System.Core" />
+  <Module PersistentId="System.Net, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" ModuleId="System.Net" />
+  <Module PersistentId="System.Xml, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" ModuleId="System.Xml" />
+  <Module PersistentId="mscorlib.Extensions, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" ModuleId="mscorlib.Extensions" />
+  <Module PersistentId="mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" ModuleId="mscorlib" />
+</Modules>

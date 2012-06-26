@@ -9,11 +9,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
-using WP_TimelogTracker.tlp;
+using ThumbReg.tlp;
 
-namespace WP_TimelogTracker.ViewModels
+namespace ThumbReg.ViewModels
 {
-    public class ProjectHeaderComparer:  IEqualityComparer<ProjectHeader>
+    public class ProjectHeaderComparer : IEqualityComparer<ProjectHeader>
     {
 
         public bool Equals(ProjectHeader x, ProjectHeader y)

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{2163b22f-e7d4-4a2e-b579-1e28f531ab20}" Title="Thumb Reg For TimeLog Project" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="WP_TimelogTracker author" Description="Sample description" Publisher="WP_TimelogTracker">
+  <App xmlns="" ProductID="{2163b22f-e7d4-4a2e-b579-1e28f531ab20}" Title="Thumb Reg For TimeLog Project" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="WP_TimelogTracker author" Description="Experimental Client for TimeLog" Publisher="ThumbReg">
     <IconPath IsRelative="true" IsResource="false">Images\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />

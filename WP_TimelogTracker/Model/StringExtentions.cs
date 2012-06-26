@@ -10,7 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 
-namespace WP_TimelogTracker.Model
+namespace ThumbReg.Model
 {
     public static class StringExtentions
     {

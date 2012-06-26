@@ -1,37 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Tasks;
-
-namespace WP_TimelogTracker
+﻿namespace ThumbReg
 {
-    public partial class About : PhoneApplicationPage
+    using System;
+    using System.Windows;
+    using Microsoft.Phone.Tasks;
+
+    public partial class About
     {
-        private string _version = "Version: 0.1 BETA";
+        private const string Version = "Version: 0.1 BETA";
+
+        /// <summary>
+        /// CTOR
+        /// </summary>
         public About()
         {
             InitializeComponent();
-            txtVersion.Text = _version;
+            txtVersion.Text = Version;
         }
 
-        private void btnSendMail_Click(object sender, RoutedEventArgs e)
+        private void BtnSendMailClick(object sender, RoutedEventArgs e)
         {
-            EmailComposeTask _email = new EmailComposeTask{
-                    To = "mraaskov@hotmail.com",
-                    Subject="Thumb reg for TimeLog Project",
-                    Body = Environment.NewLine + Environment.NewLine + _version
-            };
-            _email.Show();
-            
+            var email = new EmailComposeTask
+                                          {
+                                              To = "mraaskov@hotmail.com",
+                                              Subject = "Thumb reg for TimeLog Project",
+                                              Body = Environment.NewLine + Environment.NewLine + Version
+                                          };
+            email.Show();           
         }
     }
 }

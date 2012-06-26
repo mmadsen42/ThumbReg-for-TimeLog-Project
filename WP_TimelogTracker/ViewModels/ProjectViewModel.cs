@@ -10,15 +10,15 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using WP_TimelogTracker;
-using WP_TimelogTracker.tlp;
-using WP_TimelogTracker.tlpSecurity;
-using WP_TimelogTracker.Model;
+using ThumbReg.Model;
+using ThumbReg.tlp;
+using ThumbReg.tlpSecurity;
+using ThumbReg;
 using System.IO.IsolatedStorage;
 using System.ComponentModel;
 
 
-namespace WP_TimelogTracker.ViewModels
+namespace ThumbReg.ViewModels
 {
     public class ProjectViewModel
     {
@@ -31,8 +31,8 @@ namespace WP_TimelogTracker.ViewModels
 
 
         private IsolatedStorageSettings _isoStore = IsolatedStorageSettings.ApplicationSettings;
-        //private ObservableCollection<ProjectHeader> _projects = new ObservableCollection<ProjectHeader>();
-        //private ObservableCollection<CustomerHeader> _customers = new ObservableCollection<CustomerHeader>();
+        // private ObservableCollection<ProjectHeader> _projects = new ObservableCollection<ProjectHeader>();
+        // private ObservableCollection<CustomerHeader> _customers = new ObservableCollection<CustomerHeader>();
         private static readonly ProjectViewModel _instance = new ProjectViewModel();
 
         public ObservableCollection<WPTask> Tasks
@@ -40,11 +40,11 @@ namespace WP_TimelogTracker.ViewModels
             get { return _Tasks; }
             set
             {
-                //if (_Tasks != value)
-                //{
+                // if (_Tasks != value)
+                // {
                     _Tasks = value;
                     OnPropertyChanged("Tasks");
-                //}
+                // }
             }
         }
 
@@ -158,7 +158,7 @@ namespace WP_TimelogTracker.ViewModels
                         _RecentTasks.Add(t);
                     }
 
-                    //_RecentTasks = _allTasks;
+                    // _RecentTasks = _allTasks;
                     if (Tasks.Any())
                     {
                         IsDataLoaded = true;
@@ -175,24 +175,24 @@ namespace WP_TimelogTracker.ViewModels
 
 
 
-        //public ObservableCollection<ProjectHeader> Projects {
+        // public ObservableCollection<ProjectHeader> Projects {
         //    get { return _projects; }
-        //}
+        // }
 
-        //public ObservableCollection<CustomerHeader> Customers {
+        // public ObservableCollection<CustomerHeader> Customers {
         //    get { return _customers; }
-        //}
+        // }
         public void LoadProjects()
         {
             LoadInProgress = true;
-            //var _add = new System.ServiceModel.EndpointAddress("https://app.timelog.dk/local/WebServices/Security/V1_0/SecurityServiceSecure.svc");
-            WP_TimelogTracker.tlpSecurity.SecurityServiceClient _secClient = new WP_TimelogTracker.tlpSecurity.SecurityServiceClient();
-            _secClient.GetTokenCompleted += new EventHandler<WP_TimelogTracker.tlpSecurity.GetTokenCompletedEventArgs>(_secClient_GetTokenCompleted);
+            // var _add = new System.ServiceModel.EndpointAddress("https:// app.timelog.dk/local/WebServices/Security/V1_0/SecurityServiceSecure.svc");
+            SecurityServiceClient _secClient = new SecurityServiceClient();
+            _secClient.GetTokenCompleted += new EventHandler<GetTokenCompletedEventArgs>(_secClient_GetTokenCompleted);
             _secClient.GetTokenAsync(new tlpSecurity.GetTokenRequest(App.IdentityViewModel.User, App.IdentityViewModel.Password));
         }
 
 
-        void _secClient_GetTokenCompleted(object sender, WP_TimelogTracker.tlpSecurity.GetTokenCompletedEventArgs e)
+        void _secClient_GetTokenCompleted(object sender, GetTokenCompletedEventArgs e)
         {
             try
             {
@@ -210,7 +210,7 @@ namespace WP_TimelogTracker.ViewModels
                 };
                 App.IdentityViewModel.ProjectToken = _prjToken;
 
-                //Fetch all task from the server
+                // Fetch all task from the server
                 tlp.ProjectManagementServiceClient _prjClient = new tlp.ProjectManagementServiceClient();
                 _prjClient.GetTasksAllocatedToEmployeeCompleted += new EventHandler<tlp.GetTasksAllocatedToEmployeeCompletedEventArgs>(_prjClient_GetTasksAllocatedToEmployeeCompleted);
                 _prjClient.GetTasksAllocatedToEmployeeAsync(new tlp.GetTasksAllocatedToEmployeeRequest(App.IdentityViewModel.User, _prjToken));
@@ -223,17 +223,17 @@ namespace WP_TimelogTracker.ViewModels
             }
         }
 
-        void _prjClient_GetTasksAllocatedToEmployeeCompleted(object sender, WP_TimelogTracker.tlp.GetTasksAllocatedToEmployeeCompletedEventArgs e)
+        void _prjClient_GetTasksAllocatedToEmployeeCompleted(object sender, GetTasksAllocatedToEmployeeCompletedEventArgs e)
         {
-            //get all task that is not parent task
+            // get all task that is not parent task
             var _childTasks = e.Result.GetTasksAllocatedToEmployeeResult.Return.Where(t => !t.IsParent);
 
-            //construct the all Task list
-            _allTasks.Clear();
+            // construct the all Task list
+            this._allTasks.Clear();
             foreach (var _T in _childTasks.OrderBy(t => t.Details.CustomerHeader.Name).ThenBy(t => t.Details.ProjectHeader.Name).ThenBy(t => t.SortOrder))
             {
                 var _t = FromAPItoDomain(_T);
-                _allTasks.Add(_t);
+                this._allTasks.Add(_t);
                 Tasks.Add(_t);
             }
 
@@ -248,12 +248,12 @@ namespace WP_TimelogTracker.ViewModels
                     db.tasksTable.DeleteAllOnSubmit(db.tasksTable);
                 }
 
-                db.tasksTable.InsertAllOnSubmit(_allTasks);
+                db.tasksTable.InsertAllOnSubmit(this._allTasks);
                 db.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
             }
 
             _NewestTasks.Clear();
-            //constuct the list of the 7 newest task
+            // constuct the list of the 7 newest task
             foreach (var _T in _childTasks.OrderByDescending(t => t.StartDate).Take(7).OrderBy(t => t.Details.CustomerHeader.Name).ThenBy(t => t.Details.ProjectHeader.Name).ThenBy(t => t.SortOrder))
             {
                 _NewestTasks.Add(FromAPItoDomain(_T));
@@ -267,7 +267,7 @@ namespace WP_TimelogTracker.ViewModels
         private void LoadLastWeeksRegistrationsFromServer()
         {
             LoadInProgress = true;
-            //Fetch recent registrations on the server
+            // Fetch recent registrations on the server
             tlp.ProjectManagementServiceClient _prjClient = new tlp.ProjectManagementServiceClient();
             DateTime _startdate = DateTime.Now.AddDays(-7).Date;
             DateTime _endDate = DateTime.Now.AddDays(1).Date;
@@ -280,7 +280,7 @@ namespace WP_TimelogTracker.ViewModels
         void _prjClient_GetEmployeeWorkCompleted(object sender, GetEmployeeWorkCompletedEventArgs e)
         {
             List<int> _recentUsedTaskID = new List<int>();
-            Dictionary<int,string> _recentUsedComments = new Dictionary<int,string>();
+            Dictionary<int, string> _recentUsedComments = new Dictionary<int, string>();
             foreach (WorkUnit u in e.Result.GetEmployeeWorkResult.Return.OrderBy(w => w.StartDateTime))
             {
                 _recentUsedTaskID.Add(u.TaskID);
@@ -293,7 +293,7 @@ namespace WP_TimelogTracker.ViewModels
             _RecentTasks.Clear();
             foreach (int taskID in _recentUsedTaskID.Distinct())
             {
-                var _task = _allTasks.FirstOrDefault(t => t.ID == taskID);
+                var _task = this._allTasks.FirstOrDefault(t => t.ID == taskID);
                 if (_task != null) _RecentTasks.Add(_task);
             }
             using (Database db = new Database())
@@ -304,14 +304,16 @@ namespace WP_TimelogTracker.ViewModels
                     db.CreateDatabase();
                 }
 
-                foreach (var _usedTask in _RecentTasks) { 
+                foreach (var _usedTask in _RecentTasks) 
+                { 
                     var taskInDB = from WPTask t in db.tasksTable where t.ID == _usedTask.ID 
                                    select t;
 
                     foreach (var t in taskInDB) {
                         t.RecentUsed = true;
                         string _comment;
-                        if(_recentUsedComments.TryGetValue(t.ID, out _comment)){
+                        if (_recentUsedComments.TryGetValue(t.ID, out _comment))
+                        {
                             t.RecentComment = _comment;
                         }                         
                     }
@@ -360,8 +362,8 @@ namespace WP_TimelogTracker.ViewModels
                 }
 
                 Tasks.Clear();
-                
-                var _match = from WPTask t in _allTasks
+
+                var _match = from WPTask t in this._allTasks
                              where t.FullName.Contains(filter, StringComparison.OrdinalIgnoreCase)
                              || t.CustomerName.Contains(filter, StringComparison.OrdinalIgnoreCase)
 
@@ -372,7 +374,7 @@ namespace WP_TimelogTracker.ViewModels
                     Tasks.Add(t);
                 }
                 
-                //Tasks = _Tasks;
+                // Tasks = _Tasks;
             }
         }
     }

@@ -12,7 +12,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Data.Linq.Mapping;
 
-namespace WP_TimelogTracker.Model
+namespace ThumbReg.Model
 {
     [Table]
     public class WPTask

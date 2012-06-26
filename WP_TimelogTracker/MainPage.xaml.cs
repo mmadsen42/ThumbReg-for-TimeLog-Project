@@ -1,37 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using WP_TimelogTracker.Model;
-
+using ThumbReg.Model;
 using Microsoft.Phone.Shell;
 
-namespace WP_TimelogTracker
+namespace ThumbReg
 {
     public partial class MainPage : PhoneApplicationPage
     {
-       
+
         public MainPage()
         {
             DataContext = App.ViewModel;
-            
+
             InitializeComponent();
-            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-            App.ViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ProjectViewModel_PropertyChanged);
-            
+            Loaded += MainPageLoaded;
+            App.ViewModel.PropertyChanged += ProjectViewModelPropertyChanged;
+
         }
-       
-       
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+
+
+        private void MainPageLoaded(object sender, RoutedEventArgs e)
         {
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
@@ -40,7 +32,7 @@ namespace WP_TimelogTracker
                 if (!App.ViewModel.IsDataLoaded)
                 {
                     if (!String.IsNullOrWhiteSpace(App.IdentityViewModel.User))
-                    {                        
+                    {
                         App.ViewModel.LoadData(false);
                     }
                     else
@@ -49,7 +41,8 @@ namespace WP_TimelogTracker
                     }
                 }
             }
-            catch (Exception) { 
+            catch (Exception)
+            {
                 NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
             }
         }
@@ -62,24 +55,22 @@ namespace WP_TimelogTracker
 
         private void ClearSearchResult()
         {
-            Dispatcher.BeginInvoke(() => {
-                App.ViewModel.FilterTask(String.Empty);
-            });
+            Dispatcher.BeginInvoke(() => App.ViewModel.FilterTask(String.Empty));
         }
 
-        private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TaskListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WPTask _selected = ((ListBox)sender).SelectedItem as WPTask;
-            if (_selected != null)
+            var selected = ((ListBox)sender).SelectedItem as WPTask;
+            if (selected != null)
             {
-                NavigationService.Navigate(new Uri("/AddRegistrationPage.xaml?selectedItem=" + _selected.ID, UriKind.Relative));
+                NavigationService.Navigate(new Uri("/AddRegistrationPage.xaml?selectedItem=" + selected.ID, UriKind.Relative));
             }
             // Reset selected index to -1 (no selection)
             ((ListBox)sender).SelectedIndex = -1;
 
         }
 
-        private void ReloadTasks_Click(object sender, EventArgs e)
+        private void ReloadTasksClick(object sender, EventArgs e)
         {
             try
             {
@@ -88,31 +79,39 @@ namespace WP_TimelogTracker
             catch (Exception ex)
             {
 
-                MessageBoxResult _return =  MessageBox.Show(ex.Message +Environment.NewLine + " Check Username and Password?", "Connection error", MessageBoxButton.OKCancel);
-                if(_return == MessageBoxResult.OK){
+                MessageBoxResult _return = MessageBox.Show(ex.Message + Environment.NewLine + " Check Username and Password?", "Connection error", MessageBoxButton.OKCancel);
+                if (_return == MessageBoxResult.OK)
+                {
                     NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
                 }
-            }            
-            
+            }
+
         }
 
-        private void MenuItemPinToStart_Click(object sender, RoutedEventArgs e)
-        {            
-            WPTask _selected = ((sender as MenuItem).DataContext) as WPTask;
-            if (_selected != null)
+        private void MenuItemPinToStartClick(object sender, RoutedEventArgs e)
+        {
+            WPTask selected = (((MenuItem) sender).DataContext) as WPTask;
+            if (selected != null)
             {
-                CreateLiveTile(_selected);
+                CreateLiveTile(selected);
             }
         }
 
-        private void CreateLiveTile(WPTask _selected)
+        private void CreateLiveTile(WPTask selected)
         {
-            StandardTileData _tiledata = new StandardTileData
+            StandardTileData tiledata = new StandardTileData
             {
-                Title = _selected.Name
+                Title = selected.Name, 
+                BackTitle = selected.CustomerName,
+                BackContent = selected.ProjectName,
+                BackgroundImage = new Uri("/Images/ApplicationIcon.png",UriKind.Relative)
+                
             };
-            //TODO: Load date when navigating back on page from tile
-            ShellTile.Create(new Uri("/AddRegistrationPage.xaml?selectedItem=" + _selected.ID, UriKind.Relative), _tiledata);
+            ShellTile tileToFind = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("AddRegistrationPage.xaml?selectedItem=" + selected.ID));
+            if (tileToFind == null) { 
+                ShellTile.Create(new Uri("/AddRegistrationPage.xaml?selectedItem=" + selected.ID, UriKind.Relative), tiledata);    
+            }
+            
         }
 
         private void Settings_Click(object sender, EventArgs e)
@@ -120,70 +119,61 @@ namespace WP_TimelogTracker
             NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
         }
 
-        private void About_Click(object sender, EventArgs e)
+        private void AboutClick(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/About.xaml", UriKind.Relative));
         }
 
-        void ProjectViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) { 
-            if(e.PropertyName.Equals("LoadInProgress")){               
+        void ProjectViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("LoadInProgress"))
+            {
                 Progress.IsVisible = App.ViewModel.LoadInProgress;
             }
-            if(e.PropertyName.Equals("ConnectionStatus")){
+            if (e.PropertyName.Equals("ConnectionStatus"))
+            {
                 MessageBox.Show(App.ViewModel.ConnectionStatus);
             }
-            
+
         }
 
-        private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
+        private void OpenSearchBarClick(object sender, EventArgs e)
         {
-          
-           
-        }
-
-        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void OpenSearchBar_Click(object sender, EventArgs e)
-        {
-            if (txtFilter.Visibility == System.Windows.Visibility.Collapsed)
+            if (txtFilter.Visibility == Visibility.Collapsed)
             {
-                txtFilter.Visibility = System.Windows.Visibility.Visible;
+                txtFilter.Visibility = Visibility.Visible;
                 txtFilter.Text = String.Empty;
                 txtFilter.Focus();
-                //hide appbar to maximize the space for keyboard                
-                this.ApplicationBar.IsVisible = !this.ApplicationBar.IsVisible;
-                
+                ////hide appbar to maximize the space for keyboard                
+                ApplicationBar.IsVisible = !ApplicationBar.IsVisible;
+
             }
-            else {
-                txtFilter.Visibility = System.Windows.Visibility.Collapsed;
+            else
+            {
+                txtFilter.Visibility = Visibility.Collapsed;
                 txtFilter.Text = String.Empty;
-                               
-                //Clear the search result
+
+                ////Clear the search result
                 ClearSearchResult();
             }
-            
+
         }
 
-        private void txtFilter_LostFocus(object sender, RoutedEventArgs e)
+        private void TxtFilterLostFocus(object sender, RoutedEventArgs e)
         {
-            txtFilter.Visibility = System.Windows.Visibility.Collapsed;
-            this.ApplicationBar.IsVisible = !this.ApplicationBar.IsVisible;
+            txtFilter.Visibility = Visibility.Collapsed;
+            ApplicationBar.IsVisible = !this.ApplicationBar.IsVisible;
 
         }
 
-        
+
 
         private void txtFilter_KeyUp(object sender, KeyEventArgs e)
         {
-            Dispatcher.BeginInvoke(() => {
-                App.ViewModel.FilterTask(txtFilter.Text);
-            });
+            Dispatcher.BeginInvoke(() => App.ViewModel.FilterTask(txtFilter.Text));
             DataContext = App.ViewModel;
         }
 
-       
+
     }
 }
