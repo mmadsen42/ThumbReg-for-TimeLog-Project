@@ -4,6 +4,7 @@ using ThumbReg.tlp;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.IO.IsolatedStorage;
+using ThumbReg.Model;
 
 namespace ThumbReg.ViewModels
 {
@@ -23,11 +24,17 @@ namespace ThumbReg.ViewModels
             }
         }
 
+        public ObservableCollection<WorkUnit> TodayRegistrations = new ObservableCollection<WorkUnit>();
+        public ObservableCollection<WorkUnit> YesterdayRegistrations = new ObservableCollection<WorkUnit>();
+        public WorkUnit w = new WorkUnit();
+      
+
         public Duration TimeSinceLastRegistration
         {
             get
             {
                 return DateTime.Now.Subtract(TimeOfLastRegistration).Duration();
+                //w.Details.ProjectHeader.Name
             }
         }
 
@@ -104,5 +111,7 @@ namespace ThumbReg.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        
     }
 }

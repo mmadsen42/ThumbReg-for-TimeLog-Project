@@ -134,6 +134,9 @@ namespace ThumbReg
             {
                 MessageBox.Show(App.ViewModel.ConnectionStatus);
             }
+            if (e.PropertyName.Equals("Tasks")) {
+                pivot1.DataContext = App.ViewModel.Tasks;
+            }
 
         }
 
@@ -172,8 +175,22 @@ namespace ThumbReg
         {
             Dispatcher.BeginInvoke(() => App.ViewModel.FilterTask(txtFilter.Text));
             DataContext = App.ViewModel;
+            if (e.Key == Key.Enter) {
+                pivot1.Focus();
+            }
         }
 
+     
+        private void pivot1_LoadedPivotItem(object sender, Microsoft.Phone.Controls.PivotItemEventArgs e)
+        {
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[1]).IsEnabled = (e.Item.Name == "AllList"); //Enable search icon
+                    
+        }
+
+        private void RegistrationsIcon_Click(object sender, System.EventArgs e)
+        {
+        	 NavigationService.Navigate(new Uri("/RegistrationsPage.xaml", UriKind.Relative));
+        }
 
     }
 }

@@ -45,7 +45,7 @@
                         x:FieldModifier="private" MinHeight="10" Value="15" />
                 <TextBlock  Text="Comment" Margin="10,10,0,0" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource PhoneAccentBrush}" />
                 <TextBox InputScope="Text" Height="181" HorizontalAlignment="Left" Margin="0,0,0,0" Name="txtComment" Text="{Binding RecentComment}" VerticalAlignment="Top"  Width="452" AcceptsReturn="False" TextWrapping="Wrap" TabIndex="2"
-                         x:FieldModifier="private" HorizontalContentAlignment="Left" AllowDrop="True" />
+                         x:FieldModifier="private" HorizontalContentAlignment="Left" />
                 <TextBlock x:Name="txtStatus" Height="58" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Bottom"
                            x:FieldModifier="private" />
             </StackPanel>

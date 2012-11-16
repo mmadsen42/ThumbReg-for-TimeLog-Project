@@ -34,13 +34,15 @@
     </phone:PhoneApplicationPage.Resources>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.sync.rest.png" Text="Syncronize" Click="ReloadTasksClick" />
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="Search" Click="OpenSearchBarClick" />
+        <shell:ApplicationBar IsMenuEnabled="False">
+            <shell:ApplicationBarIconButton x:Name="SyncronizeIcon" IconUri="/Images/appbar.sync.rest.png" Text="Syncronize" Click="ReloadTasksClick"  />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="Search" Click="OpenSearchBarClick" x:Name="SearchIcon" IsEnabled="False" />
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/appbar.list.two.png" Text="Registrations" x:Name="RegistrationsIcon" IsEnabled="True" Click="RegistrationsIcon_Click" />
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="Syncronize" Click="ReloadTasksClick"/>
-                <shell:ApplicationBarMenuItem Text="Settings"  Click="Settings_Click"/>
-                <shell:ApplicationBarMenuItem Text="About"  Click="AboutClick"/>
+                <shell:ApplicationBarMenuItem x:Name="SyncronizeMenuItem" Text="Syncronize" Click="ReloadTasksClick"/>
+                <shell:ApplicationBarMenuItem x:Name="RegistrationsMenuItem" Text="Registrations" Click="RegistrationsIcon_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="SettingsMenuItem" Text="Settings"  Click="Settings_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="AboutMenuItem" Text="About"  Click="AboutClick"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
@@ -53,29 +55,26 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Name="txtFilter" Visibility="Collapsed" Height="60" FontSize="18" LostFocus="TxtFilterLostFocus" KeyUp="txtFilter_KeyUp"></TextBox>
-        <controls:Pivot Title="SELECT A TASK" Name="pivot1" Grid.Row="1" >
+        <TextBox Grid.Row="0" Name="txtFilter" Visibility="Collapsed" Height="60" FontSize="18" LostFocus="TxtFilterLostFocus" KeyUp="txtFilter_KeyUp"/>
+        <controls:Pivot Title="SELECT A TASK" Name="pivot1" Grid.Row="1" LoadedPivotItem="pivot1_LoadedPivotItem" >
                 <controls:Pivot.Foreground>
                     <SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
                 </controls:Pivot.Foreground>
                 <controls:PivotItem Header="recent used" x:Name="RecentList" FontSize="16">
                     <Grid>
-                        <ListBox ItemsSource="{Binding RecentTasks}" SelectionChanged="TaskListBoxSelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True" >
-                        </ListBox>
+                        <ListBox ItemsSource="{Binding RecentTasks}" SelectionChanged="TaskListBoxSelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True" />
                     </Grid>
                 </controls:PivotItem>
 
-                <controls:PivotItem Header="all" x:Name="AllList" FontSize="16">
+                <controls:PivotItem Header="all" x:Name="AllList" FontSize="16" >
                     <Grid>
-                    <ListBox ItemsSource="{Binding Tasks}"  SelectionChanged="TaskListBoxSelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True">
-                        </ListBox>
+                    <ListBox ItemsSource="{Binding Tasks}"  SelectionChanged="TaskListBoxSelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True"/>
                     </Grid>
                 </controls:PivotItem>
 
                 <controls:PivotItem Header="new allocations" x:Name="NewestList" FontSize="16">
                     <Grid>
-                        <ListBox ItemsSource="{Binding NewestTasks}" SelectionChanged="TaskListBoxSelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True">
-                        </ListBox>
+                        <ListBox ItemsSource="{Binding NewestTasks}" SelectionChanged="TaskListBoxSelectionChanged" ItemTemplate="{StaticResource TaskGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True"/>
                     </Grid>
                 </controls:PivotItem>
             </controls:Pivot>           

@@ -1,0 +1,63 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    x:Class="ThumbReg.RegistrationsPage"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+	<phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Name="RegistrationGridItemTemplate" >
+            <StackPanel>
+                <TextBlock Text="{Binding Details.ProjectHeader.Name}"  FontSize="{StaticResource PhoneFontSizeLarge}" Margin="5,5,5,1" />
+                <!--<TextBlock Text="{Binding ProjectName}"  FontSize="{StaticResource PhoneFontSizeSmall}" Margin="5,1" />
+                <TextBlock Text="{Binding CustomerName}"   FontSize="{StaticResource PhoneFontSizeSmall}" Foreground="#FFf1f1f1" Margin="5,1" />-->
+                <toolkit:ContextMenuService.ContextMenu>
+                    <toolkit:ContextMenu>
+                        <toolkit:MenuItem Header="Delete" Click="MenuItemDeleteClick" />
+                    </toolkit:ContextMenu>
+                </toolkit:ContextMenuService.ContextMenu>
+            </StackPanel>
+            
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+	<phone:PhoneApplicationPage.ApplicationBar>
+		<shell:ApplicationBar>
+			<shell:ApplicationBar.MenuItems>
+				<shell:ApplicationBarMenuItem x:Name="AddRegistrationMenuItem" IsEnabled="True" Text="Add registration" Click="AddRegistrationIcon_Click"/>
+			</shell:ApplicationBar.MenuItems>
+			<shell:ApplicationBarIconButton x:Name="AddRegistrationIcon" IconUri="/Images/appbar.add.rest.png" IsEnabled="True" Text="Add registration" Click="AddRegistrationIcon_Click"/>
+		</shell:ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+    	<controls:Pivot HorizontalAlignment="Left" Height="670" Grid.Row="1" Title="REGISTRATIONS" VerticalAlignment="Top" Width="480" Foreground="{StaticResource PhoneAccentBrush}" Background="{StaticResource PhoneBackgroundBrush}">
+    		<controls:PivotItem Header="today" FontSize="16">
+    			<Grid>
+                        <ListBox ItemsSource="{Binding TodayRegistrations}" SelectionChanged="RegistrationSelectionChanged" ItemTemplate="{StaticResource RegistrationGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True" />
+                </Grid>
+    		</controls:PivotItem>
+    		<controls:PivotItem Header="yesterday" FontSize="16">
+    			<Grid>
+                        <ListBox ItemsSource="{Binding YesterdayRegistrations}" SelectionChanged="RegistrationSelectionChanged" ItemTemplate="{StaticResource RegistrationGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True" />
+                </Grid>
+    		</controls:PivotItem>
+    	</controls:Pivot>
+    	<TextBlock x:Name="txtTotal" HorizontalAlignment="Left" Height="88" Margin="0,680,0,0" Grid.RowSpan="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="480" Foreground="{StaticResource PhoneAccentBrush}" FontWeight="SemiBold" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" LineHeight="18.667" FontSize="64"/>
+    </Grid>
+
+</phone:PhoneApplicationPage>

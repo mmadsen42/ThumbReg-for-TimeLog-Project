@@ -140,10 +140,12 @@ namespace ThumbReg.ViewModels
                     var taskInDB = from WPTask t in db.tasksTable
                                    select t;
                     Tasks.Clear();
+                    _allTasks.Clear();
                     foreach (WPTask t in taskInDB) {
                         Tasks.Add(t);
+                        _allTasks.Add(t);
                     }
-
+                   
                     foreach (var _T in _Tasks.OrderByDescending(t => t.StartDate).Take(10).OrderBy(t => t.CustomerName).ThenBy(t => t.ProjectName).ThenBy(t => t.SortOrder))
                     {
                         _NewestTasks.Add(_T);
@@ -230,6 +232,7 @@ namespace ThumbReg.ViewModels
 
             // construct the all Task list
             this._allTasks.Clear();
+            Tasks.Clear();
             foreach (var _T in _childTasks.OrderBy(t => t.Details.CustomerHeader.Name).ThenBy(t => t.Details.ProjectHeader.Name).ThenBy(t => t.SortOrder))
             {
                 var _t = FromAPItoDomain(_T);
@@ -279,6 +282,8 @@ namespace ThumbReg.ViewModels
 
         void _prjClient_GetEmployeeWorkCompleted(object sender, GetEmployeeWorkCompletedEventArgs e)
         {
+            DateTime _today = DateTime.Today;
+            DateTime _yesterday = DateTime.Today.AddDays(-1);
             List<int> _recentUsedTaskID = new List<int>();
             Dictionary<int, string> _recentUsedComments = new Dictionary<int, string>();
             foreach (WorkUnit u in e.Result.GetEmployeeWorkResult.Return.OrderBy(w => w.StartDateTime))
@@ -287,7 +292,16 @@ namespace ThumbReg.ViewModels
                 if (!String.IsNullOrWhiteSpace(u.Description))
                 {
                     _recentUsedComments[u.TaskID] = u.Description;
-                }                
+                }
+
+                if (u.StartDateTime.Date == _today) {
+                    App.RegistrationViewModel.TodayRegistrations.Add(u);
+                }
+                if (u.StartDateTime.Date == _yesterday)
+                {
+                    App.RegistrationViewModel.YesterdayRegistrations.Add(u);
+                }
+
             }
 
             _RecentTasks.Clear();

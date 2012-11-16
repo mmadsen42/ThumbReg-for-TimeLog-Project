@@ -26,7 +26,7 @@
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <Utf8Output>true</Utf8Output>
-    <ExpressionBlendVersion>4.0.30701.0</ExpressionBlendVersion>
+    <ExpressionBlendVersion>5.0.30924.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -86,9 +86,13 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\StringExtentions.cs" />
+    <Compile Include="Model\WPRegistration.cs" />
     <Compile Include="Model\WPTask.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrationsPage.xaml.cs">
+      <DependentUpon>RegistrationsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Service References\tlpSecurity\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -132,6 +136,10 @@
       <SubType>Designer</SubType>
       <ContainsDataSources>True</ContainsDataSources>
     </Page>
+    <Page Include="RegistrationsPage.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +150,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AppBar\appbar.list.two.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\ApplicationIcon.png" />
     <Content Include="Images\appbar.feature.search.rest.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
@@ -231,13 +242,6 @@
     <None Include="Service References\tlp\ThumbReg.tlp.UpdateWorkResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\tlpSecurity\" />
-    <WCFMetadataStorage Include="Service References\tlp\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SampleData\" />
