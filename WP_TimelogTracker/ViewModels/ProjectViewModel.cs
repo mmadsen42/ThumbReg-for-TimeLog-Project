@@ -380,7 +380,8 @@ namespace ThumbReg.ViewModels
                 var _match = from WPTask t in this._allTasks
                              where t.FullName.Contains(filter, StringComparison.OrdinalIgnoreCase)
                              || t.CustomerName.Contains(filter, StringComparison.OrdinalIgnoreCase)
-
+                             || t.ProjectName.Contains(filter, StringComparison.OrdinalIgnoreCase)
+                             || (!String.IsNullOrWhiteSpace(t.RecentComment) && t.RecentComment.Contains(filter, StringComparison.OrdinalIgnoreCase))
                              select t;
 
                 foreach (WPTask t in _match.ToList())

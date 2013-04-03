@@ -1,9 +1,10 @@
 <MarketplaceDetails>
-  <SmallAppTile>
-  </SmallAppTile>
+  <SmallAppTile>ApplicationIcon_big.png</SmallAppTile>
   <LargeAppTile>
   </LargeAppTile>
   <PCAppTile>
   </PCAppTile>
-  <ScreenShots>;;;;;;;;</ScreenShots>
+  <ScreenShots>Settings.png;recentUsed.png;Slider.png;PinFavoritTask.png;Search.png;;;;</ScreenShots>
+  <ScreenShotsWXGA>;;;;;;;;</ScreenShotsWXGA>
+  <ScreenShots720P>;;;;;;;;</ScreenShots720P>
 </MarketplaceDetails>

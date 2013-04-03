@@ -82,6 +82,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extension\StringExtension.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -153,6 +154,10 @@
     <Content Include="Assets\AppBar\appbar.list.two.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="WP_TimelogTracker_2012_12_05_08_45_30.sap" />
+    <None Include="WP_TimelogTracker_2012_12_05_08_49_53.sap" />
+    <None Include="WP_TimelogTracker_2013_04_03_23_55_10.sap" />
+    <None Include="WP_TimelogTracker_2013_04_03_23_56_50.sap" />
     <Resource Include="Images\ApplicationIcon.png" />
     <Content Include="Images\appbar.feature.search.rest.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />

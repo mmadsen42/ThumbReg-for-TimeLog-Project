@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Phone.Controls;
 using ThumbReg.Model;
+using ThumbReg.Extension;
 using Microsoft.Phone.Shell;
 
 namespace ThumbReg
@@ -101,9 +102,10 @@ namespace ThumbReg
         {
             StandardTileData tiledata = new StandardTileData
             {
-                Title = selected.Name, 
-                BackTitle = selected.CustomerName,
-                BackContent = selected.ProjectName,
+                Title = selected.Name.MaxLength(10),
+                BackTitle = selected.CustomerName.MaxLength(10),
+                BackContent = selected.ProjectName.MaxLength(10),
+                
                 BackgroundImage = new Uri("/Images/ApplicationIcon.png",UriKind.Relative)
                 
             };

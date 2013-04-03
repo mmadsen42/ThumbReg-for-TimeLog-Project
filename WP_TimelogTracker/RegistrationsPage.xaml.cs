@@ -17,6 +17,14 @@ namespace ThumbReg
         public RegistrationsPage()
         {
             InitializeComponent();
+            Loaded += PageLoaded;
+            
+        }
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = App.RegistrationViewModel;
+            
         }
 		
 		protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -29,7 +37,7 @@ namespace ThumbReg
 			 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
 		}
 
-        private void MenuItemDeleteClick(object sender, RoutedEventArgs e)
+        private void MenuItemEditClick(object sender, RoutedEventArgs e)
         {
             var selected = ((ListBox)sender).SelectedItem as WorkUnit;
             if (selected != null)
@@ -49,6 +57,20 @@ namespace ThumbReg
             }
             // Reset selected index to -1 (no selection)
             ((ListBox)sender).SelectedIndex = -1;
+        }
+
+        private void pivot1_LoadedPivotItem_1(object sender, PivotItemEventArgs e)
+        {
+            
+        }
+
+        private void pivot1_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            Duration _totalTimeForToday = new Duration();
+            foreach (var workunit in App.RegistrationViewModel.TodayRegistrations) {
+                _totalTimeForToday.Add(workunit.Duration);
+            }
+            //txtTotal.Text = _totalTimeForToday.TimeSpan.ToString();
         }
     }
 }

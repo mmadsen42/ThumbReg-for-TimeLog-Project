@@ -6,7 +6,7 @@
 
     public partial class About
     {
-        private const string Version = "Version: 0.1 BETA";
+        protected const string Version = "Version: 0.2";
 
         /// <summary>
         /// CTOR

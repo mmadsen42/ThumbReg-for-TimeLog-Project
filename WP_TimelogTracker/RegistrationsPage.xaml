@@ -19,11 +19,12 @@
         <DataTemplate x:Name="RegistrationGridItemTemplate" >
             <StackPanel>
                 <TextBlock Text="{Binding Details.ProjectHeader.Name}"  FontSize="{StaticResource PhoneFontSizeLarge}" Margin="5,5,5,1" />
-                <!--<TextBlock Text="{Binding ProjectName}"  FontSize="{StaticResource PhoneFontSizeSmall}" Margin="5,1" />
-                <TextBlock Text="{Binding CustomerName}"   FontSize="{StaticResource PhoneFontSizeSmall}" Foreground="#FFf1f1f1" Margin="5,1" />-->
+                <TextBlock Text="{Binding Details.TaskHeader.Name}"  FontSize="{StaticResource PhoneFontSizeSmall}" Margin="5,1" />
+                <TextBlock Text="{Binding Comment}"   FontSize="{StaticResource PhoneFontSizeSmall}" Foreground="#FFf1f1f1" Margin="5,1" />
+                <TextBlock Text="{Binding Duration}"   FontSize="{StaticResource PhoneFontSizeSmall}" Foreground="#FFf1f1f1" Margin="5,1" />
                 <toolkit:ContextMenuService.ContextMenu>
                     <toolkit:ContextMenu>
-                        <toolkit:MenuItem Header="Delete" Click="MenuItemDeleteClick" />
+                        <toolkit:MenuItem Header="Edit" Click="MenuItemEditClick" />
                     </toolkit:ContextMenu>
                 </toolkit:ContextMenuService.ContextMenu>
             </StackPanel>
@@ -45,19 +46,19 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-    	<controls:Pivot HorizontalAlignment="Left" Height="670" Grid.Row="1" Title="REGISTRATIONS" VerticalAlignment="Top" Width="480" Foreground="{StaticResource PhoneAccentBrush}" Background="{StaticResource PhoneBackgroundBrush}">
-    		<controls:PivotItem Header="today" FontSize="16">
+    	<controls:Pivot Name="pivot1" HorizontalAlignment="Left" Height="670" Grid.Row="1" Title="REGISTRATIONS" VerticalAlignment="Top" Width="480" Foreground="{StaticResource PhoneAccentBrush}" Background="{StaticResource PhoneBackgroundBrush}" LoadedPivotItem="pivot1_LoadedPivotItem_1" Loaded="pivot1_Loaded_1">
+            <!--<controls:PivotItem Header="yesterday" FontSize="16">
+                <Grid>
+                    <ListBox ItemsSource="{Binding YesterdayRegistrations}" SelectionChanged="RegistrationSelectionChanged" ItemTemplate="{StaticResource RegistrationGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True" />
+                </Grid>
+            </controls:PivotItem>-->
+            <controls:PivotItem Header="today" FontSize="16">
     			<Grid>
                         <ListBox ItemsSource="{Binding TodayRegistrations}" SelectionChanged="RegistrationSelectionChanged" ItemTemplate="{StaticResource RegistrationGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True" />
                 </Grid>
-    		</controls:PivotItem>
-    		<controls:PivotItem Header="yesterday" FontSize="16">
-    			<Grid>
-                        <ListBox ItemsSource="{Binding YesterdayRegistrations}" SelectionChanged="RegistrationSelectionChanged" ItemTemplate="{StaticResource RegistrationGridItemTemplate }" toolkit:TiltEffect.IsTiltEnabled="True" />
-                </Grid>
-    		</controls:PivotItem>
+    		</controls:PivotItem>    		
     	</controls:Pivot>
-    	<TextBlock x:Name="txtTotal" HorizontalAlignment="Left" Height="88" Margin="0,680,0,0" Grid.RowSpan="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="480" Foreground="{StaticResource PhoneAccentBrush}" FontWeight="SemiBold" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" LineHeight="18.667" FontSize="64"/>
+    	<TextBlock x:Name="txtTotal" HorizontalAlignment="Left" Height="158" Margin="0,610,0,-72" Grid.RowSpan="2" TextWrapping="Wrap" Text="6:33" VerticalAlignment="Top" Width="480" Foreground="{StaticResource PhoneAccentBrush}" FontWeight="SemiBold" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" LineHeight="18.667" FontSize="64"/>
     </Grid>
 
 </phone:PhoneApplicationPage>

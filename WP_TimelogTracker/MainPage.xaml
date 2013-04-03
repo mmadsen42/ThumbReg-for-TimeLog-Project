@@ -34,13 +34,13 @@
     </phone:PhoneApplicationPage.Resources>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsMenuEnabled="False">
+        <shell:ApplicationBar IsMenuEnabled="True">
             <shell:ApplicationBarIconButton x:Name="SyncronizeIcon" IconUri="/Images/appbar.sync.rest.png" Text="Syncronize" Click="ReloadTasksClick"  />
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="Search" Click="OpenSearchBarClick" x:Name="SearchIcon" IsEnabled="False" />
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/appbar.list.two.png" Text="Registrations" x:Name="RegistrationsIcon" IsEnabled="True" Click="RegistrationsIcon_Click" />
+            <!--<shell:ApplicationBarIconButton IconUri="/Assets/AppBar/appbar.list.two.png" Text="Registrations" x:Name="RegistrationsIcon" IsEnabled="True" Click="RegistrationsIcon_Click" />-->
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem x:Name="SyncronizeMenuItem" Text="Syncronize" Click="ReloadTasksClick"/>
-                <shell:ApplicationBarMenuItem x:Name="RegistrationsMenuItem" Text="Registrations" Click="RegistrationsIcon_Click"/>
+                <!--<shell:ApplicationBarMenuItem x:Name="RegistrationsMenuItem" Text="Registrations" Click="RegistrationsIcon_Click"/>-->
                 <shell:ApplicationBarMenuItem x:Name="SettingsMenuItem" Text="Settings"  Click="Settings_Click"/>
                 <shell:ApplicationBarMenuItem x:Name="AboutMenuItem" Text="About"  Click="AboutClick"/>
             </shell:ApplicationBar.MenuItems>

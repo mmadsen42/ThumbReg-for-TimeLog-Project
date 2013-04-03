@@ -80,3 +80,5 @@ C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\
 C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\WP_TimelogTracker.dll
 C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\WP_TimelogTracker.pdb
 C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\XapCacheFile.xml
+C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Release\Assets\AppBar\appbar.list.two.png
+C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\obj\Release\RegistrationsPage.g.cs
