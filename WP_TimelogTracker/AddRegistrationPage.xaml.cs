@@ -28,6 +28,9 @@ namespace ThumbReg
             {
                 inpDuration.Value = new TimeSpan(_hours, _minutes, 0);
             }
+            if (_hours.Equals(0) && _minutes.Equals(0)) {
+                _minutes = 30;
+            }
 
 
         }
@@ -44,6 +47,7 @@ namespace ThumbReg
         {
             Progress.IsVisible = false;
             txtStatus.Text = App.RegistrationViewModel.Status;
+            ApplicationBar.IsVisible = true;
         }
 
 
@@ -88,7 +92,7 @@ namespace ThumbReg
 
         private void ApplicationBarIconButtonClick(object sender, EventArgs e)
         {
-
+            ApplicationBar.IsVisible = false;
             if (App.IdentityViewModel.ProjectToken == null)
             {
                 App.IdentityViewModel.Login();

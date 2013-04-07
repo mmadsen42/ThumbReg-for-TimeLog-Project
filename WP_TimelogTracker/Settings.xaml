@@ -13,6 +13,12 @@
     mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True"
+                                 IsVisible="False"
+                                 Text="Signing in..." 
+                                 x:Name="Progress" x:FieldModifier="private" />
+    </shell:SystemTray.ProgressIndicator>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>

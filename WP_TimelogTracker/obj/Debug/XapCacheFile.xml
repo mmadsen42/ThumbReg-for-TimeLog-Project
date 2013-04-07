@@ -1,8 +1,8 @@
-﻿<xapCache source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\ThumbReg.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="05-12-2012 08:45:45">
-  <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="03-11-2012 23:30:13" />
+﻿<xapCache source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\ThumbReg.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="07-04-2013 23:44:18">
+  <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="07-04-2013 22:52:51" />
   <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Images\ApplicationIcon.png" archivePath="Images\ApplicationIcon.png" lastWriteTime="03-11-2012 22:51:37" />
   <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Images\ApplicationIcon.png" archivePath="Images\ApplicationIcon.png" lastWriteTime="03-11-2012 22:51:37" />
-  <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.dll" archivePath="WP_TimelogTracker.dll" lastWriteTime="05-12-2012 08:45:41" />
+  <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\obj\Debug\WP_TimelogTracker.dll" archivePath="WP_TimelogTracker.dll" lastWriteTime="07-04-2013 23:44:14" />
   <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Coding4Fun.Phone.Controls.dll" archivePath="Coding4Fun.Phone.Controls.dll" lastWriteTime="03-11-2012 22:51:35" />
   <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Coding4Fun.Phone.Controls.Toolkit.dll" archivePath="Coding4Fun.Phone.Controls.Toolkit.dll" lastWriteTime="03-11-2012 22:51:35" />
   <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Coding4Fun.Phone.Site.Controls.dll" archivePath="Coding4Fun.Phone.Site.Controls.dll" lastWriteTime="03-11-2012 22:51:35" />
@@ -20,7 +20,7 @@
   <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Images\appbar.refresh.rest.png" archivePath="Images\appbar.refresh.rest.png" lastWriteTime="03-11-2012 22:51:37" />
   <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Images\appbar.save.rest.png" archivePath="Images\appbar.save.rest.png" lastWriteTime="03-11-2012 22:51:37" />
   <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Images\appbar.sync.rest.png" archivePath="Images\appbar.sync.rest.png" lastWriteTime="03-11-2012 22:51:37" />
-  <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\ServiceReferences.ClientConfig" archivePath="ServiceReferences.ClientConfig" lastWriteTime="03-11-2012 22:51:37" />
+  <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\ServiceReferences.ClientConfig" archivePath="ServiceReferences.ClientConfig" lastWriteTime="07-04-2013 22:04:18" />
   <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="03-11-2012 23:30:13" />
   <file source="C:\Users\Martin\Documents\GitHub\ThumbReg-for-TimeLog-Project\WP_TimelogTracker\Bin\Debug\Assets\AppBar\appbar.list.two.png" archivePath="Assets\AppBar\appbar.list.two.png" lastWriteTime="16-11-2012 00:00:10" />
 </xapCache>

@@ -189,6 +189,7 @@ namespace ThumbReg.ViewModels
             LoadInProgress = true;
             // var _add = new System.ServiceModel.EndpointAddress("https:// app.timelog.dk/local/WebServices/Security/V1_0/SecurityServiceSecure.svc");
             SecurityServiceClient _secClient = new SecurityServiceClient();
+            _secClient.Endpoint.Address = new System.ServiceModel.EndpointAddress(_secClient.Endpoint.Address.ToString().Replace("app.timelog.dk/local", App.IdentityViewModel.HostAddr));
             _secClient.GetTokenCompleted += new EventHandler<GetTokenCompletedEventArgs>(_secClient_GetTokenCompleted);
             _secClient.GetTokenAsync(new tlpSecurity.GetTokenRequest(App.IdentityViewModel.User, App.IdentityViewModel.Password));
         }
@@ -214,6 +215,7 @@ namespace ThumbReg.ViewModels
 
                 // Fetch all task from the server
                 tlp.ProjectManagementServiceClient _prjClient = new tlp.ProjectManagementServiceClient();
+                _prjClient.Endpoint.Address = new System.ServiceModel.EndpointAddress(_prjClient.Endpoint.Address.ToString().Replace("app.timelog.dk/local", App.IdentityViewModel.HostAddr));
                 _prjClient.GetTasksAllocatedToEmployeeCompleted += new EventHandler<tlp.GetTasksAllocatedToEmployeeCompletedEventArgs>(_prjClient_GetTasksAllocatedToEmployeeCompleted);
                 _prjClient.GetTasksAllocatedToEmployeeAsync(new tlp.GetTasksAllocatedToEmployeeRequest(App.IdentityViewModel.User, _prjToken));
 
@@ -272,6 +274,7 @@ namespace ThumbReg.ViewModels
             LoadInProgress = true;
             // Fetch recent registrations on the server
             tlp.ProjectManagementServiceClient _prjClient = new tlp.ProjectManagementServiceClient();
+            _prjClient.Endpoint.Address = new System.ServiceModel.EndpointAddress(_prjClient.Endpoint.Address.ToString().Replace("app.timelog.dk/local", App.IdentityViewModel.HostAddr));
             DateTime _startdate = DateTime.Now.AddDays(-7).Date;
             DateTime _endDate = DateTime.Now.AddDays(1).Date;
             _prjClient.GetEmployeeWorkCompleted += new EventHandler<GetEmployeeWorkCompletedEventArgs>(_prjClient_GetEmployeeWorkCompleted);

@@ -13,14 +13,21 @@ namespace ThumbReg
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {            
+            
             base.OnNavigatedTo(e);
-            txtPassword.Password = App.IdentityViewModel.Password;
-            txtUrl.Text = App.IdentityViewModel.HostAddr;
-            txtUserName.Text = App.IdentityViewModel.User;
+           
+            txtPassword.Password = String.IsNullOrEmpty(App.IdentityViewModel.Password) ? "tsgtsg" : App.IdentityViewModel.Password;
+            txtUrl.Text = String.IsNullOrWhiteSpace(App.IdentityViewModel.HostAddr) ? "app.timelog.dk/tracker_demo" : App.IdentityViewModel.HostAddr;
+            txtUserName.Text = String.IsNullOrWhiteSpace(App.IdentityViewModel.User) ? "demo" : App.IdentityViewModel.User;
+            try
+            {
+                NavigationService.RemoveBackEntry();
+            }catch(InvalidOperationException){}
         }
 
         void IdentityViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            Progress.IsVisible = false;
             if (e.PropertyName == "Token") {
                 if (App.IdentityViewModel.Token != null)
                 {
@@ -41,13 +48,19 @@ namespace ThumbReg
 
         private void Save_Click(object sender, EventArgs e)
         {
-            
+
+            SignIn();
+
+        }
+
+        private void SignIn()
+        {
             lblConnected.Text = "Signing in...";
+            Progress.IsVisible = true;
             App.IdentityViewModel.User = txtUserName.Text;
             App.IdentityViewModel.Password = txtPassword.Password;
             App.IdentityViewModel.HostAddr = txtUrl.Text;
             App.IdentityViewModel.CheckConnection();
-
         }
 
         private void About_Click(object sender, EventArgs e)

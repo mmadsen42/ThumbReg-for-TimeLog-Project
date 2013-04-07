@@ -76,6 +76,7 @@ namespace ThumbReg.ViewModels
         public void CheckConnection()
         {            
             var client = new SecurityServiceClient();
+            client.Endpoint.Address = new System.ServiceModel.EndpointAddress(client.Endpoint.Address.ToString().Replace("app.timelog.dk/local", HostAddr));
             client.GetTokenCompleted += ClientGetTokenCompleted;
             client.GetTokenAsync(new GetTokenRequest(App.IdentityViewModel.User, App.IdentityViewModel.Password));
         }
@@ -103,6 +104,7 @@ namespace ThumbReg.ViewModels
         internal void Login()
         {
             var secClient = new SecurityServiceClient();
+            secClient.Endpoint.Address = new System.ServiceModel.EndpointAddress(secClient.Endpoint.Address.ToString().Replace("app.timelog.dk/local", HostAddr));
             secClient.GetTokenCompleted += _secClient_GetTokenCompleted;
             secClient.GetTokenAsync(new GetTokenRequest(App.IdentityViewModel.User, App.IdentityViewModel.Password));
         }

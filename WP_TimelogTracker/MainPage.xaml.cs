@@ -39,17 +39,20 @@ namespace ThumbReg
                     else
                     {
                         NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
+                        
                     }
                 }
             }
             catch (Exception)
             {
                 NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
+              
             }
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            
             base.OnNavigatedTo(e);
             ClearSearchResult();
         }

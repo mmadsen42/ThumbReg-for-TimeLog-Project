@@ -74,6 +74,7 @@ namespace ThumbReg.ViewModels
             var workUnits = new ObservableCollection<WorkUnit> {workunit};
 
             var prjClient = new ProjectManagementServiceClient();
+            prjClient.Endpoint.Address = new System.ServiceModel.EndpointAddress(prjClient.Endpoint.Address.ToString().Replace("app.timelog.dk/local", App.IdentityViewModel.HostAddr));
             prjClient.InsertWorkCompleted += PrjClientInsertWorkCompleted;
             prjClient.InsertWorkAsync(new InsertWorkRequest(workUnits, 99, App.IdentityViewModel.ProjectToken));
         }
