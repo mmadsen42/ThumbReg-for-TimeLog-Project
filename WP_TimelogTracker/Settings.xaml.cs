@@ -21,7 +21,11 @@ namespace ThumbReg
             txtUserName.Text = String.IsNullOrWhiteSpace(App.IdentityViewModel.User) ? "demo" : App.IdentityViewModel.User;
             try
             {
-                NavigationService.RemoveBackEntry();
+                if(String.IsNullOrWhiteSpace( App.IdentityViewModel.HostAddr))
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+               
             }catch(InvalidOperationException){}
         }
 
